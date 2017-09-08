@@ -12,15 +12,17 @@ type WorkItemType =
 | Feature
 | Miscellaneous
 
-// TODO: constrain to 100 characters
+// TODO: constrain 10 to 100 characters
 type Description = Description of string
-// TODO: constrain to 300 characters
+// TODO: constrain 10 to 300 characters
 type Author = Author of string
+// TODO: constrain 0 to 100
+type VersionNumber = VersionNumber of int
 
 type Version = {
-    Major: int
-    Minor: int
-    Revision: int
+    Major: VersionNumber
+    Minor: VersionNumber
+    Revision: VersionNumber
 }
 
 type WorkItem = {
