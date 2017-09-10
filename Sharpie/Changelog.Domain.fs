@@ -1,6 +1,7 @@
 module Changelog.Domain
 
 open System
+open Util.Types
 
 
 // TODO: constrain 10 to 100 characters
@@ -29,7 +30,7 @@ type Version = {
 
 type Release = {
     Version: Version
-    Date: DateTime
+    Date: PastDate
     Authors: list<Author>
     WorkItems: list<WorkItem>
 }
