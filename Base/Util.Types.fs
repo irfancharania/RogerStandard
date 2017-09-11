@@ -3,6 +3,7 @@ module Util
 open System
 
 
+/// http://www.taimila.com/blog/fsharp-pure-time-dependent-domain/
 type PastDate = PastDate of DateTime
 type CurrentDate = CurrentDate of DateTime
 type FutureDate = FutureDate of DateTime

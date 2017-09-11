@@ -3,29 +3,49 @@ module Util.Types
 open System
 
 
-type PastDate = PastDate of DateTime
-type CurrentDate = CurrentDate of DateTime
-type FutureDate = FutureDate of DateTime
+type StringError =
+    | Missing
+    | MustNotBeLongerThan of int
+    | DoesntMatchPattern of string
 
-type Date =
-  | Past of PastDate
-  | Current of CurrentDate
-  | Future of FutureDate
 
-let create (dt: DateTime) =
-  match dt with
-  | dt when dt.Date = DateTime.Today -> Current (CurrentDate(dt))
-  | dt when dt.Date < DateTime.Today -> Past (PastDate(dt))
-  | _ -> Future (FutureDate(dt))
+type IntegerError =
+    | Missing
+    | MustBePositiveInteger
+    | MustBeGreaterThan of int
+    | MustBeGreaterThanOrEqualTo of int
+    | MustBeLessThan of int
+    | MustBeLessThanOrEqualTo of int
 
-let isToday = function
-  | CurrentDate _ -> true
-  | _ -> false
 
-let isInFuture = function
-  | FutureDate _ -> true
-  | _ -> false
+/// http://www.taimila.com/blog/fsharp-pure-time-dependent-domain/
+module Date =
+    type PastDate = PastDate of DateTime
+    type CurrentDate = CurrentDate of DateTime
+    type FutureDate = FutureDate of DateTime
 
-let isInPast = function
-  | PastDate _ -> true
-  | _ -> false  
+    type T = 
+        | Past of PastDate
+        | Current of CurrentDate
+        | Future of FutureDate
+
+    let create (dt: DateTime) =
+        match dt with
+        | dt when dt.Date = DateTime.Today -> Current (CurrentDate(dt))
+        | dt when dt.Date < DateTime.Today -> Past (PastDate(dt))
+        | _ -> Future (FutureDate(dt))
+
+    let isToday = 
+        function
+        | Current _ -> true
+        | _ -> false
+
+    let isInFuture = 
+        function
+        | Future _ -> true
+        | _ -> false
+
+    let isInPast =
+        function
+        | Past _ -> true
+        | _ -> false
