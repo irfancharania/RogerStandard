@@ -54,7 +54,8 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="packages.config" />
     <Compile Include="Util.Types.fs" />
-    <Compile Include="Changelog.Domain.fsi" />
+    <Compile Include="Changelog.DomainPrimitiveTypes.fsi" />
+    <Compile Include="Changelog.DomainPrimitiveTypes.fs" />
     <Compile Include="Changelog.Domain.fs" />
     <Compile Include="Script.fsx" />
   </ItemGroup>
