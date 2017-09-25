@@ -22,7 +22,7 @@ type WorkItem = {
 
 
 type Release = {
-    Version: ReleaseVersion.T
+    Version: Version
     Date: ReleaseDate.T
     Authors: NonEmptyList<ReleaseAuthor.T>
     WorkItems: NonEmptyList<WorkItem>

@@ -47,40 +47,6 @@ module ReleaseDescription =
     let apply f (ReleaseDescription s) = f s
 
 
-module VersionNumber = 
-    type T = VersionNumber of int
-
-    let create x = 
-        match x with
-        | _ when x < 0      -> Error(MustBeGreaterThanOrEqualTo 0)
-        | _ when x > 100    -> Error(MustBeLessThanOrEqualTo 100)
-        | _ -> Ok (VersionNumber x)
-    
-    let apply f (VersionNumber i) = f i
-
-
-module ReleaseVersion =
-    type T = {
-                Major: VersionNumber.T
-                Minor: VersionNumber.T
-                Revision: VersionNumber.T
-            }
-    type T with 
-        member this.isLowerThan (x:T) =
-            match x with
-            | _ when this.Major < x.Major       -> true
-            | _ when this.Minor < x.Minor       -> true
-            | _ when this.Revision < x.Revision -> true
-            | _ -> false
-
-        member this.isHigherThan (x:T) =
-            match x with
-            | _ when this.Major > x.Major       -> true
-            | _ when this.Minor > x.Minor       -> true
-            | _ when this.Revision > x.Revision -> true
-            | _ -> false
- 
-
  module ReleaseDate =
     let minDate = new DateTime(2017,1,1)
     let maxDate = new DateTime(2057,1,1)

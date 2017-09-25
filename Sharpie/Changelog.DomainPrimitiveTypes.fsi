@@ -34,22 +34,6 @@ module ReleaseAuthor =
     val apply: (string -> 'a) -> T -> 'a
 
 
-module VersionNumber = 
-    type T = VersionNumber of int
-    val create: int -> Result<T, IntegerError>
-    val apply: (int -> 'a) -> T -> 'a
-
-
-module ReleaseVersion =
-    type T = {
-                Major: VersionNumber.T
-                Minor: VersionNumber.T
-                Revision: VersionNumber.T
-            }
-            with 
-                member isLowerThan: T -> bool
-                member isHigherThan: T -> bool
-
 module ReleaseDate =
     type T = ReleaseDate of DateTime
 
