@@ -10,8 +10,6 @@ type StringError =
     | Missing
     | MustNotBeLongerThan of int
     | MustNotBeShorterThan of int
-    | DoesntMatchPattern of string
-
 
 type IntegerError =
     | Missing
@@ -22,8 +20,8 @@ type IntegerError =
     | MustBeLessThanOrEqualTo of int
 
 
-module ReleaseDescription = 
-    type T = ReleaseDescription of string
+module WorkItemDescription = 
+    type T = WorkItemDescription of string
     val create: string -> Result<T, StringError>
     val apply: (string -> 'a) -> T -> 'a
 

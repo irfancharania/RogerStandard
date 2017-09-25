@@ -14,3 +14,13 @@ open FSharpx.Collections
 open Changelog.DomainPrimitiveTypes
 open Changelog.Domain
 
+let a = createWorkItemDescription "hi uihiul hljkk";;
+let u = createVersion String.Empty;;
+let v = createVersion "hi.0";;
+let w = createVersion "1";;
+let x = createVersion "-234";;
+let y = createVersion "2.0.0";;
+let z = createVersion "22222222.8888888.23";;
+
+let h = createReleaseDate DateTime.Now;;
+let i = createReleaseDate DateTime.UtcNow;;

@@ -17,3 +17,4 @@ module Result =
         let (<!>) = Result.map
         let (<*>) = apply
         f <!> x1 <*> x2 <*> x3
+

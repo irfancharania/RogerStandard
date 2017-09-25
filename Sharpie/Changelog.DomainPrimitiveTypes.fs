@@ -10,8 +10,6 @@ type StringError =
     | Missing
     | MustNotBeLongerThan of int
     | MustNotBeShorterThan of int
-    | DoesntMatchPattern of string
-
 
 type IntegerError =
     | Missing
@@ -34,30 +32,30 @@ module ReleaseAuthor =
     let apply f (ReleaseAuthor s) = f s
 
 
-module ReleaseDescription =
-    type T = ReleaseDescription of string
+module WorkItemDescription =
+    type T = WorkItemDescription of string
 
     let create (s:string) =
         match s with
         | _ when String.IsNullOrWhiteSpace s    -> Error StringError.Missing
         | _ when s.Length < 10                  -> Error (MustNotBeShorterThan 10)
         | _ when s.Length > 100                 -> Error (MustNotBeLongerThan 100)
-        | _ -> Ok (ReleaseDescription s)
+        | _ -> Ok (WorkItemDescription s)
 
-    let apply f (ReleaseDescription s) = f s
+    let apply f (WorkItemDescription s) = f s
 
 
  module ReleaseDate =
     let minDate = new DateTime(2017,1,1)
-    let maxDate = new DateTime(2057,1,1)
-    let today = DateTime.Today
+    let tomorrow = DateTime.UtcNow.Date.AddDays(1.0)
 
     type T = ReleaseDate of DateTime
 
     let create (dt:DateTime) = 
+
+
         match dt with
-        | _ when dt > maxDate   -> Error (MustBeOlderThan maxDate)
-        | _ when dt > today     -> Error (MustBeOlderThan today)        
+        | _ when dt > tomorrow  -> Error (MustBeOlderThan tomorrow)        
         | _ when dt < minDate   -> Error (MustBeNewerThan minDate)
         | _ -> Ok(dt)
 
