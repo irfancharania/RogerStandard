@@ -16,6 +16,7 @@ type WorkItemType =
 
 
 type WorkItem = {
+    Id: WorkItemId.T
     Type: WorkItemType
     Description: WorkItemDescription.T
 }
@@ -23,7 +24,7 @@ type WorkItem = {
 
 type Release = {
     Version: Version
-    Date: ReleaseDate.T
+    ReleaseDate: ReleaseDate.T
     Authors: NonEmptyList<ReleaseAuthor.T>
     WorkItems: NonEmptyList<WorkItem>
 }
@@ -39,6 +40,10 @@ type DomainMessage =
     | VersionNumberIncorrectFormat
     | VersionNumberLessThanZero
     | VersionNumberGreaterThanMaximum
+    | WorkItemIsRequired
+    | WorkItemIdMustBePositive
+    | WorkItemIdUnknownError
+    | WorkItemTypeInvalidValueProvided
     | WorkItemDescriptionIsRequired
     | WorkItemDescriptionMustNotBeShorterThan10Chars
     | WorkItemDescriptionMustNotBeLongerThan100Chars
@@ -53,6 +58,16 @@ let mapErrorToList fn result =
     result |> Result.mapError (fun err -> [fn err])
 
 
+let createWorkItemId workItemId =
+    let map = function
+        | IntegerError.Missing      -> WorkItemIsRequired
+        | MustBePositiveInteger _   -> WorkItemIdMustBePositive
+        | _                         -> WorkItemIdUnknownError
+    
+    WorkItemId.create workItemId
+    |> mapErrorToList map
+
+
 let createWorkItemDescription description =
     let map = function
         | StringError.Missing       -> WorkItemDescriptionIsRequired
@@ -63,12 +78,19 @@ let createWorkItemDescription description =
     |> mapErrorToList map
 
 
+let createWorkItem workItemId workItemType workItemDescription =
+    {Id = workItemId; Type = workItemType; Description = workItemDescription}
+
+
 let createVersion version =
-    let couldparse, parsed = Version.TryParse version
-    if couldparse then
-        Ok (parsed)
+    if String.IsNullOrWhiteSpace version then
+        Error([VersionNumberIsRequired])
     else
-        Error([VersionNumberUnableToParse])
+        let couldparse, parsed = Version.TryParse version
+        if couldparse then
+            Ok (parsed)
+        else
+            Error([VersionNumberUnableToParse])
   
 
 let createReleaseDate date =

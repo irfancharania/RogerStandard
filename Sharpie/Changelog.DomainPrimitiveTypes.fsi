@@ -20,6 +20,12 @@ type IntegerError =
     | MustBeLessThanOrEqualTo of int
 
 
+module WorkItemId = 
+    type T = WorkItemId of int
+    val create: int -> Result<T, IntegerError>
+    val apply: (int -> 'a) -> T -> 'a
+
+
 module WorkItemDescription = 
     type T = WorkItemDescription of string
     val create: string -> Result<T, StringError>

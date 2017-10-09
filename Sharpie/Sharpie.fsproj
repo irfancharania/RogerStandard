@@ -58,6 +58,7 @@
     <Compile Include="Changelog.DomainPrimitiveTypes.fsi" />
     <Compile Include="Changelog.DomainPrimitiveTypes.fs" />
     <Compile Include="Changelog.Domain.fs" />
+    <Compile Include="Changelog.Dtos.fs" />
     <Compile Include="Script.fsx" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />

@@ -32,6 +32,18 @@ module ReleaseAuthor =
     let apply f (ReleaseAuthor s) = f s
 
 
+module WorkItemId = 
+    type T = WorkItemId of int
+
+    let create (i:int) =
+        if i < 1 then
+            Error (MustBePositiveInteger)
+        else 
+            Ok (WorkItemId i)
+
+    let apply f (WorkItemId i) = f i
+
+
 module WorkItemDescription =
     type T = WorkItemDescription of string
 
@@ -52,8 +64,6 @@ module WorkItemDescription =
     type T = ReleaseDate of DateTime
 
     let create (dt:DateTime) = 
-
-
         match dt with
         | _ when dt > tomorrow  -> Error (MustBeOlderThan tomorrow)        
         | _ when dt < minDate   -> Error (MustBeNewerThan minDate)
