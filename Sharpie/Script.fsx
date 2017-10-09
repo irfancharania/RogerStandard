@@ -31,4 +31,7 @@ j.Id <- 0
 j.Type <- 2
 j.Description <- "hi"
 
-let k = WorkItemDtoToDomain j
+let k = WorkItemDto.toDomain j
+match k with
+| Ok _ -> 0
+| Error x -> x.Length

@@ -3,6 +3,7 @@ module Changelog.Dtos
 
 open System
 open Changelog.Domain
+open Changelog.DomainPrimitiveTypes
 
 // ============================== 
 // Bindings
@@ -13,16 +14,33 @@ let (<*>) = Result.apply
 
 
 // ============================== 
-// Enums
+// WorkItemType
 // ============================== 
-type WorkItemTypeEnum = 
+type WorkItemTypeDto = 
     | Bug = 1
     | Feature = 2
     | Miscellaneous = 3
 
 
+// Convertors
+module WorkItemTypeDto =
+    let toDomain (dto:WorkItemTypeDto) :Result<WorkItemType, _> =
+        match dto with
+        | WorkItemTypeDto.Bug -> Ok (WorkItemType.Bug)
+        | WorkItemTypeDto.Feature -> Ok (WorkItemType.Feature)
+        | WorkItemTypeDto.Miscellaneous -> Ok (WorkItemType.Miscellaneous)
+        | _ -> Error ([WorkItemTypeInvalidValueProvided])
+
+
+    let fromDomain (workItemType:WorkItemType) :WorkItemTypeDto =
+        match workItemType with
+        | WorkItemType.Bug -> WorkItemTypeDto.Bug
+        | WorkItemType.Feature -> WorkItemTypeDto.Feature
+        | WorkItemType.Miscellaneous -> WorkItemTypeDto.Miscellaneous
+
+
 // ============================== 
-// DTOs
+// WorkItem
 // ============================== 
 [<AllowNullLiteralAttribute>]
 type WorkItemDto() = 
@@ -31,6 +49,36 @@ type WorkItemDto() =
     member val Description : string = null with get, set
 
 
+// Convertors
+module WorkItemDto =
+    let toDomain (dto:WorkItemDto) :Result<WorkItem, _> =
+        if dto = null then 
+            Error([WorkItemIsRequired])
+        else
+            // Get each validated component
+            let workItemIdOrError = createWorkItemId dto.Id
+            let workItemTypeOrError = WorkItemTypeDto.toDomain (enum<WorkItemTypeDto> dto.Type)
+            let workItemDescriptionOrError = createWorkItemDescription dto.Description
+
+            // Combine the components
+            createWorkItem
+            <!> workItemIdOrError
+            <*> workItemTypeOrError
+            <*> workItemDescriptionOrError
+
+    
+    let fromDomain (workItem:WorkItem) :WorkItemDto =
+        let item = WorkItemDto()
+        item.Id <- workItem.Id |> WorkItemId.apply id
+        item.Type <- workItem.Type |> WorkItemTypeDto.fromDomain |> int
+        item.Description <- workItem.Description |> WorkItemDescription.apply id
+
+        item
+
+
+// ============================== 
+// Release
+// ============================== 
 [<AllowNullLiteralAttribute>]
 type ReleaseDto() = 
     member val Version: string = null with get, set
@@ -39,35 +87,6 @@ type ReleaseDto() =
     member val WorkItems : WorkItemDto[]  = null with get, set
 
 
-// ============================== 
-// DTO Converters
-// ============================== 
-let WorkItemTypeDtoToDomain (dto:WorkItemTypeEnum) :Result<WorkItemType, _> =
-    match dto with
-    | WorkItemTypeEnum.Bug -> Ok (WorkItemType.Bug)
-    | WorkItemTypeEnum.Feature -> Ok (WorkItemType.Feature)
-    | WorkItemTypeEnum.Miscellaneous -> Ok (WorkItemType.Miscellaneous)
-    | _ -> Error ([WorkItemTypeInvalidValueProvided])
 
 
-let WorkItemTypeDtoFromDomain (workItemType:WorkItemType) :WorkItemTypeEnum =
-    match workItemType with
-    | WorkItemType.Bug -> WorkItemTypeEnum.Bug
-    | WorkItemType.Feature -> WorkItemTypeEnum.Feature
-    | WorkItemType.Miscellaneous -> WorkItemTypeEnum.Miscellaneous
 
-
-let WorkItemDtoToDomain (dto:WorkItemDto) =
-    if dto = null then 
-        Error([WorkItemIsRequired])
-    else
-        // Get each validated component
-        let workItemIdOrError = createWorkItemId dto.Id
-        let workItemTypeOrError = WorkItemTypeDtoToDomain (enum<WorkItemTypeEnum> dto.Type)
-        let workItemDescriptionOrError = createWorkItemDescription dto.Description
-
-        // Combine the components
-        createWorkItem
-        <!> workItemIdOrError
-        <*> workItemTypeOrError
-        <*> workItemDescriptionOrError
