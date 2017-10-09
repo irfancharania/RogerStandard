@@ -11,6 +11,7 @@ open Changelog.Domain
 let (<!>) = Result.map
 let (<*>) = Result.apply
 
+
 // ============================== 
 // Enums
 // ============================== 
@@ -23,7 +24,6 @@ type WorkItemTypeEnum =
 // ============================== 
 // DTOs
 // ============================== 
-
 [<AllowNullLiteralAttribute>]
 type WorkItemDto() = 
     member val Id = 0 with get, set
@@ -42,12 +42,19 @@ type ReleaseDto() =
 // ============================== 
 // DTO Converters
 // ============================== 
-let WorkItemTypeDtoToDomain dto :Result<WorkItemType, _> =
+let WorkItemTypeDtoToDomain (dto:WorkItemTypeEnum) :Result<WorkItemType, _> =
     match dto with
     | WorkItemTypeEnum.Bug -> Ok (WorkItemType.Bug)
-    | WorkItemTypeEnum.Miscellaneous -> Ok (WorkItemType.Miscellaneous)
     | WorkItemTypeEnum.Feature -> Ok (WorkItemType.Feature)
+    | WorkItemTypeEnum.Miscellaneous -> Ok (WorkItemType.Miscellaneous)
     | _ -> Error ([WorkItemTypeInvalidValueProvided])
+
+
+let WorkItemTypeDtoFromDomain (workItemType:WorkItemType) :WorkItemTypeEnum =
+    match workItemType with
+    | WorkItemType.Bug -> WorkItemTypeEnum.Bug
+    | WorkItemType.Feature -> WorkItemTypeEnum.Feature
+    | WorkItemType.Miscellaneous -> WorkItemTypeEnum.Miscellaneous
 
 
 let WorkItemDtoToDomain (dto:WorkItemDto) =
