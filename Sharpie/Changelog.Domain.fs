@@ -47,6 +47,7 @@ type DomainMessage =
     | WorkItemDescriptionIsRequired
     | WorkItemDescriptionMustNotBeShorterThan10Chars
     | WorkItemDescriptionMustNotBeLongerThan100Chars
+    | ReleaseIsRequired
     | ReleaseDateMustBeNewerThan2017
     | ReleaseDateMustBeEqualToOrOlderThanToday
 
@@ -92,6 +93,10 @@ let createVersion version =
         else
             Error([VersionNumberUnableToParse])
   
+
+let fromVersion (version:Version) =
+    sprintf "%d.%d.%d.%d" version.Major version.Minor version.Build version.Revision
+
 
 let createReleaseDate date =
     let map = function

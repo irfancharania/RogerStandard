@@ -4,6 +4,7 @@ module Changelog.Dtos
 open System
 open Changelog.Domain
 open Changelog.DomainPrimitiveTypes
+open FSharpx.Collections
 
 // ============================== 
 // Bindings
@@ -86,6 +87,28 @@ type ReleaseDto() =
     member val Authors : string[] = null with get, set
     member val WorkItems : WorkItemDto[]  = null with get, set
 
+
+// Convertors
+module ReleaseDto =
+    let toDomain (dto:ReleaseDto) :Result<Release, _> =
+        //if dto = null then 
+        Error([ReleaseIsRequired])
+        //else
+
+    
+    let fromDomain (release:Release) :ReleaseDto =
+        let item = ReleaseDto()
+
+        item.Version    <- release.Version |> fromVersion
+        item.ReleaseDate <- release.ReleaseDate |> ReleaseDate.apply id
+        item.Authors    <- release.Authors
+                            |> NonEmptyList.map (ReleaseAuthor.apply id)
+                            |> NonEmptyList.toArray
+        item.WorkItems  <- release.WorkItems 
+                            |> NonEmptyList.map WorkItemDto.fromDomain
+                            |> NonEmptyList.toArray
+
+        item
 
 
 
