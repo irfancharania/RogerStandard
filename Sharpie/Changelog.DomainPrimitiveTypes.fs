@@ -67,7 +67,7 @@ module WorkItemDescription =
         match dt with
         | _ when dt > tomorrow  -> Error (MustBeOlderThan tomorrow)        
         | _ when dt < minDate   -> Error (MustBeNewerThan minDate)
-        | _ -> Ok(dt)
+        | _ -> Ok(ReleaseDate dt)
 
 
     let apply f (ReleaseDate dt) = f dt

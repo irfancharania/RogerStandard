@@ -41,5 +41,5 @@ module ReleaseAuthor =
 module ReleaseDate =
     type T = ReleaseDate of DateTime
 
-    val create: DateTime -> Result<DateTime, DateError>
+    val create: DateTime -> Result<T, DateError>
     val apply: (DateTime -> 'a) -> T -> 'a

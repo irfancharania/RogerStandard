@@ -1,7 +1,6 @@
 module Changelog.Domain
 
 open System
-open FSharpx.Collections
 open Changelog.DomainPrimitiveTypes
 
 
@@ -25,8 +24,8 @@ type WorkItem = {
 type Release = {
     Version: Version
     ReleaseDate: ReleaseDate.T
-    Authors: NonEmptyList<ReleaseAuthor.T>
-    WorkItems: NonEmptyList<WorkItem>
+    Authors: List<ReleaseAuthor.T>
+    WorkItems: List<WorkItem>
 }
 
 
@@ -50,6 +49,7 @@ type DomainMessage =
     | ReleaseIsRequired
     | ReleaseDateMustBeNewerThan2017
     | ReleaseDateMustBeEqualToOrOlderThanToday
+    | ReleaseAuthorIsRequired
 
 // ============================== 
 // Utility functions
@@ -89,7 +89,7 @@ let createVersion version =
     else
         let couldparse, parsed = Version.TryParse version
         if couldparse then
-            Ok (parsed)
+            Ok(parsed)
         else
             Error([VersionNumberUnableToParse])
   
@@ -107,3 +107,27 @@ let createReleaseDate date =
     |> mapErrorToList map
 
 
+let createAuthors (authors:string[]) =
+    if authors.Length = 0 then
+        Error([ReleaseAuthorIsRequired])
+    else
+        let result = authors
+                    |> Seq.cast<ReleaseAuthor.T>
+                    |> Seq.toList
+        Ok(result)
+
+
+let createWorkItems (workItems:List<WorkItem>) = 
+    if workItems.Length = 0 then
+        Error([WorkItemIsRequired])
+    else
+        let result = workItems
+        Ok(result)
+
+
+let createRelease version releaseDate authors workitems =
+    {   Version = version; 
+        ReleaseDate = releaseDate; 
+        Authors = authors; 
+        WorkItems = workitems
+    }

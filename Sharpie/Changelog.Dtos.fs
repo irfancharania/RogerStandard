@@ -4,7 +4,6 @@ module Changelog.Dtos
 open System
 open Changelog.Domain
 open Changelog.DomainPrimitiveTypes
-open FSharpx.Collections
 
 // ============================== 
 // Bindings
@@ -91,9 +90,24 @@ type ReleaseDto() =
 // Convertors
 module ReleaseDto =
     let toDomain (dto:ReleaseDto) :Result<Release, _> =
-        //if dto = null then 
-        Error([ReleaseIsRequired])
-        //else
+        if dto = null then 
+            Error([ReleaseIsRequired])
+        else
+            // Get each validated component
+            let releaseVersionOrError = createVersion dto.Version
+            let releaseDateOrError = createReleaseDate dto.ReleaseDate
+            let releaseAuthorsOrError = createAuthors dto.Authors
+            let releaseWorkItems = dto.WorkItems
+                                    |> Seq.map WorkItemDto.toDomain
+                                    |> Result.sequence
+
+
+            // Combine the components
+            createRelease
+            <!> releaseVersionOrError
+            <*> releaseDateOrError
+            <*> releaseAuthorsOrError
+            <*> releaseWorkItems
 
     
     let fromDomain (release:Release) :ReleaseDto =
@@ -102,14 +116,11 @@ module ReleaseDto =
         item.Version    <- release.Version |> fromVersion
         item.ReleaseDate <- release.ReleaseDate |> ReleaseDate.apply id
         item.Authors    <- release.Authors
-                            |> NonEmptyList.map (ReleaseAuthor.apply id)
-                            |> NonEmptyList.toArray
+                            |> List.map (ReleaseAuthor.apply id)
+                            |> List.toArray
         item.WorkItems  <- release.WorkItems 
-                            |> NonEmptyList.map WorkItemDto.fromDomain
-                            |> NonEmptyList.toArray
+                            |> List.map WorkItemDto.fromDomain
+                            |> List.toArray
 
         item
-
-
-
 
