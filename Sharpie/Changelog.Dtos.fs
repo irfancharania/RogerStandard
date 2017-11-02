@@ -76,6 +76,15 @@ module WorkItemDto =
         item
 
 
+let createWorkItems (workItems:WorkItemDto[]) = 
+    if workItems = null || workItems.Length = 0 then
+        Error([WorkItemIsRequired])
+    else
+        workItems
+        |> Seq.map WorkItemDto.toDomain
+        |> Result.sequence
+         
+
 // ============================== 
 // Release
 // ============================== 
@@ -97,9 +106,7 @@ module ReleaseDto =
             let releaseVersionOrError = createVersion dto.Version
             let releaseDateOrError = createReleaseDate dto.ReleaseDate
             let releaseAuthorsOrError = createAuthors dto.Authors
-            let releaseWorkItems = dto.WorkItems
-                                    |> Seq.map WorkItemDto.toDomain
-                                    |> Result.sequence
+            let releaseWorkItems = createWorkItems dto.WorkItems
 
 
             // Combine the components

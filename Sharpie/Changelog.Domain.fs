@@ -108,20 +108,12 @@ let createReleaseDate date =
 
 
 let createAuthors (authors:string[]) =
-    if authors.Length = 0 then
+    if authors = null || authors.Length = 0 then
         Error([ReleaseAuthorIsRequired])
     else
         let result = authors
                     |> Seq.cast<ReleaseAuthor.T>
                     |> Seq.toList
-        Ok(result)
-
-
-let createWorkItems (workItems:List<WorkItem>) = 
-    if workItems.Length = 0 then
-        Error([WorkItemIsRequired])
-    else
-        let result = workItems
         Ok(result)
 
 

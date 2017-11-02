@@ -45,3 +45,19 @@ module WorkItem =
 
         test<@ numErrors sut = 3 @>
 
+
+    [<Fact>]
+    let ``Convert invalid ReleaseDto to Domain``() =    
+        let sut = ReleaseDto()
+        sut.ReleaseDate <- DateTime.UtcNow.AddDays(-10.0)
+        sut.Version <- "1.1.1"
+        
+        Console.WriteLine(sut)
+
+        let numErrors item = 
+            match (ReleaseDto.toDomain item) with
+            | Ok _ -> 0
+            | Error x -> x.Length
+
+        test<@ numErrors sut = 2 @>
+

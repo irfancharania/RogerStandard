@@ -10,7 +10,6 @@
 #load "Changelog.Dtos.fs"
 
 open System
-open FSharpx.Collections
 open Changelog.DomainPrimitiveTypes
 open Changelog.Domain
 open Changelog.Dtos
@@ -26,12 +25,17 @@ open Changelog.Dtos
 //let h = createReleaseDate DateTime.Now;;
 //let i = createReleaseDate DateTime.UtcNow;;
 
-let j = WorkItemDto()
-j.Id <- 0
-j.Type <- 2
-j.Description <- "hi"
+//let j = WorkItemDto()
+//j.Id <- 0
+//j.Type <- 2
+//j.Description <- "hi"
 
-let k = WorkItemDto.toDomain j
-match k with
-| Ok _ -> 0
-| Error x -> x.Length
+//let k = WorkItemDto.toDomain j
+//match k with
+//| Ok _ -> 0
+//| Error x -> x.Length
+
+let sut = ReleaseDto()
+sut.ReleaseDate <- DateTime.UtcNow.AddDays(-10.0)
+sut.Version <- "1.1.1"
+ReleaseDto.toDomain sut;;
