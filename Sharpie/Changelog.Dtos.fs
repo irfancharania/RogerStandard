@@ -4,6 +4,7 @@ module Changelog.Dtos
 open System
 open Changelog.Domain
 open Changelog.DomainPrimitiveTypes
+open FSharpx.Collections
 
 // ============================== 
 // Bindings
@@ -83,6 +84,7 @@ let createWorkItems (workItems:WorkItemDto[]) =
         workItems
         |> Seq.map WorkItemDto.toDomain
         |> Result.sequence
+        |> Result.map NonEmptyList.ofList
          
 
 // ============================== 
@@ -123,11 +125,11 @@ module ReleaseDto =
         item.Version    <- release.Version |> fromVersion
         item.ReleaseDate <- release.ReleaseDate |> ReleaseDate.apply id
         item.Authors    <- release.Authors
-                            |> List.map (ReleaseAuthor.apply id)
-                            |> List.toArray
+                            |> NonEmptyList.map (ReleaseAuthor.apply id)
+                            |> NonEmptyList.toArray
         item.WorkItems  <- release.WorkItems 
-                            |> List.map WorkItemDto.fromDomain
-                            |> List.toArray
+                            |> NonEmptyList.map WorkItemDto.fromDomain
+                            |> NonEmptyList.toArray
 
         item
 

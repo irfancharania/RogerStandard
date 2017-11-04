@@ -2,6 +2,7 @@ module Changelog.Domain
 
 open System
 open Changelog.DomainPrimitiveTypes
+open FSharpx.Collections
 
 
 // ============================== 
@@ -24,8 +25,8 @@ type WorkItem = {
 type Release = {
     Version: Version
     ReleaseDate: ReleaseDate.T
-    Authors: List<ReleaseAuthor.T>
-    WorkItems: List<WorkItem>
+    Authors: NonEmptyList<ReleaseAuthor.T>
+    WorkItems: NonEmptyList<WorkItem>
 }
 
 
@@ -113,7 +114,7 @@ let createAuthors (authors:string[]) =
     else
         let result = authors
                     |> Seq.cast<ReleaseAuthor.T>
-                    |> Seq.toList
+                    |> NonEmptyList.ofSeq
         Ok(result)
 
 
