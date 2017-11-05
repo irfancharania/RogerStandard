@@ -43,3 +43,6 @@ module ReleaseDate =
 
     val create: DateTime -> Result<T, DateError>
     val apply: (DateTime -> 'a) -> T -> 'a
+    
+
+type RecordVersion = RecordVersion of byte[]

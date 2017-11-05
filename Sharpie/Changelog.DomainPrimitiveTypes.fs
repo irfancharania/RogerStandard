@@ -20,18 +20,6 @@ type IntegerError =
     | MustBeLessThanOrEqualTo of int
 
 
-module ReleaseAuthor =
-    type T = ReleaseAuthor of string
-
-    let create (s:string) =
-        match s with
-        | _ when String.IsNullOrWhiteSpace s    -> Error StringError.Missing
-        | _ when s.Length > 100                 -> Error (MustNotBeLongerThan 100)
-        | _ -> Ok (ReleaseAuthor s)
-
-    let apply f (ReleaseAuthor s) = f s
-
-
 module WorkItemId = 
     type T = WorkItemId of int
 
@@ -57,6 +45,18 @@ module WorkItemDescription =
     let apply f (WorkItemDescription s) = f s
 
 
+module ReleaseAuthor =
+    type T = ReleaseAuthor of string
+
+    let create (s:string) =
+        match s with
+        | _ when String.IsNullOrWhiteSpace s    -> Error StringError.Missing
+        | _ when s.Length > 100                 -> Error (MustNotBeLongerThan 100)
+        | _ -> Ok (ReleaseAuthor s)
+
+    let apply f (ReleaseAuthor s) = f s
+
+
  module ReleaseDate =
     let minDate = new DateTime(2017,1,1)
     let tomorrow = DateTime.UtcNow.Date.AddDays(1.0)
@@ -71,3 +71,7 @@ module WorkItemDescription =
 
 
     let apply f (ReleaseDate dt) = f dt
+
+    
+type RecordVersion = RecordVersion of byte[]
+

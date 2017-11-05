@@ -27,6 +27,7 @@ type Release = {
     ReleaseDate: ReleaseDate.T
     Authors: NonEmptyList<ReleaseAuthor.T>
     WorkItems: NonEmptyList<WorkItem>
+    RecordVersion: RecordVersion
 }
 
 
@@ -117,10 +118,24 @@ let createAuthors (authors:string[]) =
                     |> NonEmptyList.ofSeq
         Ok(result)
 
+let createRecordVersion (recordVersion:byte[]) :Result<RecordVersion, DomainMessage list> =
+    let result:byte[] = 
+        match recordVersion = null with
+        | true -> [||]
+        | false -> recordVersion
 
-let createRelease version releaseDate authors workitems =
+    Ok(RecordVersion result)
+
+
+let fromRecordVersion (recordVersion:RecordVersion) =
+    let (RecordVersion result) = recordVersion
+    result
+
+
+let createRelease version releaseDate authors workItems recordVersion =
     {   Version = version; 
         ReleaseDate = releaseDate; 
         Authors = authors; 
-        WorkItems = workitems
+        WorkItems = workItems;
+        RecordVersion = recordVersion;
     }

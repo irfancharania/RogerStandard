@@ -96,6 +96,7 @@ type ReleaseDto() =
     member val ReleaseDate = DateTime.Now with get, set
     member val Authors : string[] = null with get, set
     member val WorkItems : WorkItemDto[]  = null with get, set
+    member val RecordVersion : byte[] = null with get, set
 
 
 // Convertors
@@ -109,7 +110,7 @@ module ReleaseDto =
             let releaseDateOrError = createReleaseDate dto.ReleaseDate
             let releaseAuthorsOrError = createAuthors dto.Authors
             let releaseWorkItems = createWorkItems dto.WorkItems
-
+            let releaseRecordVersion = createRecordVersion dto.RecordVersion
 
             // Combine the components
             createRelease
@@ -117,6 +118,7 @@ module ReleaseDto =
             <*> releaseDateOrError
             <*> releaseAuthorsOrError
             <*> releaseWorkItems
+            <*> releaseRecordVersion
 
     
     let fromDomain (release:Release) :ReleaseDto =
@@ -130,6 +132,7 @@ module ReleaseDto =
         item.WorkItems  <- release.WorkItems 
                             |> NonEmptyList.map WorkItemDto.fromDomain
                             |> NonEmptyList.toArray
+        item.RecordVersion <- release.RecordVersion |> fromRecordVersion
 
         item
 
