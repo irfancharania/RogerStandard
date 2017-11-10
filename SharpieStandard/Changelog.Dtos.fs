@@ -49,6 +49,12 @@ type WorkItemDto() =
     member val WorkItemType = 0 with get, set
     member val Description : string = null with get, set
 
+    member this.workItemString =
+        match this.WorkItemType with
+        | 0 -> "Bug"
+        | 1 -> "Release"
+        | _ -> "Miscellaneous"
+
 
 // Convertors
 module WorkItemDto =

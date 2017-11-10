@@ -1,0 +1,21 @@
+.release {
+    margin: 20px 0;
+    border-bottom: 2px solid #dff;
+    &:last-of-type{
+        border-bottom: 0
+    }
+}
+
+.date {
+    color: #666;
+    font-size: 12px;
+}
+
+.authors {
+    .author::after {
+        content:","
+    }
+    .author:last-of-type::after {
+        content: ""
+    }
+}
