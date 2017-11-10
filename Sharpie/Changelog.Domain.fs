@@ -52,6 +52,7 @@ type DomainMessage =
     | ReleaseDateMustBeNewerThan2017
     | ReleaseDateMustBeEqualToOrOlderThanToday
     | ReleaseAuthorIsRequired
+    | ReleaseAuthorUnknownError
 
 // ============================== 
 // Utility functions
@@ -113,13 +114,17 @@ let createAuthors (authors:string[]) =
     if authors = null || authors.Length = 0 then
         Error([ReleaseAuthorIsRequired])
     else
-        let result = authors
-                    |> Array.map ReleaseAuthor.create
-                    |> Array.collect (function
-                                     | Ok(author) -> [|author|]
-                                     | Error(msg) -> [||])
-                    |> NonEmptyList.ofArray
-        Ok(result)
+        let map = function
+        | StringError.Missing   -> ReleaseAuthorIsRequired
+        | _                     -> ReleaseAuthorUnknownError
+        
+        let createAuthor = ReleaseAuthor.create >> (mapErrorToList map)
+
+        authors
+        |> Seq.map createAuthor
+        |> Result.sequence
+        |> Result.map NonEmptyList.ofList
+
 
 let createRecordVersion (recordVersion:byte[]) :Result<RecordVersion, DomainMessage list> =
     let result:byte[] = 
