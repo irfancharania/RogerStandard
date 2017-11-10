@@ -114,8 +114,11 @@ let createAuthors (authors:string[]) =
         Error([ReleaseAuthorIsRequired])
     else
         let result = authors
-                    |> Seq.cast<ReleaseAuthor.T>
-                    |> NonEmptyList.ofSeq
+                    |> Array.map ReleaseAuthor.create
+                    |> Array.collect (function
+                                     | Ok(author) -> [|author|]
+                                     | Error(msg) -> [||])
+                    |> NonEmptyList.ofArray
         Ok(result)
 
 let createRecordVersion (recordVersion:byte[]) :Result<RecordVersion, DomainMessage list> =
