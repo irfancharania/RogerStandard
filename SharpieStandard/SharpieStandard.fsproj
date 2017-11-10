@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Global.fs" />
+    <Compile Include="Util.Types.fs" />
+    <Compile Include="Changelog.DomainPrimitiveTypes.fsi" />
+    <Compile Include="Changelog.DomainPrimitiveTypes.fs" />
+    <Compile Include="Changelog.Domain.fs" />
+    <Compile Include="Changelog.Dtos.fs" />
+    <Compile Include="Script.fsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharpx.Collections" Version="1.17.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+</Project>
