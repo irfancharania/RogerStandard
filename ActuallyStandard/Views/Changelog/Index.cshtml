@@ -1,0 +1,16 @@
+﻿@model Standard.ViewModels.ChangelogViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+<div>
+    @foreach (var release in Model.Releases)
+    {
+        <div><strong>@release.ReleaseVersion</strong></div>
+    }
+</div>
+

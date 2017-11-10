@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard", "Standard\Standa
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "SharpieStandard", "SharpieStandard\SharpieStandard.fsproj", "{C0DCECA8-0B9F-4B24-954D-237CF1E8F912}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActuallyStandard", "ActuallyStandard\ActuallyStandard.csproj", "{88731798-7877-48C5-8F83-8F12F4F4353F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{C0DCECA8-0B9F-4B24-954D-237CF1E8F912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0DCECA8-0B9F-4B24-954D-237CF1E8F912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0DCECA8-0B9F-4B24-954D-237CF1E8F912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88731798-7877-48C5-8F83-8F12F4F4353F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88731798-7877-48C5-8F83-8F12F4F4353F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88731798-7877-48C5-8F83-8F12F4F4353F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88731798-7877-48C5-8F83-8F12F4F4353F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
