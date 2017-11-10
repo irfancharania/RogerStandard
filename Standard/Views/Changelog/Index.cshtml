@@ -3,14 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-
+<h1>Changelog</h1>
 
 <div>
     @foreach (var release in Model.Releases)
     {
-        <div><strong>@release.ReleaseVersion</strong></div>
+        @Html.Partial("_Release", release)
     }
 </div>
 

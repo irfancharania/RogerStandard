@@ -17,7 +17,7 @@ namespace Standard.Services
                 {
                     ReleaseVersion = "1.0.0",
                     ReleaseDate = DateTime.UtcNow.AddDays(-1),
-                    Authors = new string[] { "Irfan" },
+                    Authors = new string[] { "Irfan", "Adam" },
                     WorkItems = new Dtos.WorkItemDto[] {
                         new Dtos.WorkItemDto{
                             Id = 1,
@@ -30,7 +30,7 @@ namespace Standard.Services
                 {
                     ReleaseVersion = "1.0.1",
                     ReleaseDate = DateTime.UtcNow,
-                    Authors = new string[] { "Irfan" },
+                    Authors = new string[] { "Adam", "Irfan" },
                     WorkItems = new Dtos.WorkItemDto[] {
                         new Dtos.WorkItemDto{
                             Id = 2,
