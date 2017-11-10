@@ -37,5 +37,5 @@ open Changelog.Dtos
 
 let sut = ReleaseDto()
 sut.ReleaseDate <- DateTime.UtcNow.AddDays(-10.0)
-sut.Version <- "1.1.1"
+sut.ReleaseVersion <- "1.1.1"
 ReleaseDto.toDomain sut;;

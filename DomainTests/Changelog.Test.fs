@@ -14,7 +14,7 @@ module WorkItem =
     let ``Convert valid WorkItemDto to Domain``() =    
         let dto = WorkItemDto()
         dto.Id <- 1
-        dto.Type <- 1
+        dto.WorkItemType <- 1
         dto.Description <- "Convert valid WorkItemDto to Domain"
 
         let sut = WorkItemDto.toDomain dto
@@ -22,7 +22,7 @@ module WorkItem =
 
         let expected = {
             Id = WorkItemId.T.WorkItemId 1;
-            Type = Bug;
+            WorkItemType = Bug;
             Description = WorkItemDescription.T.WorkItemDescription "Convert valid WorkItemDto to Domain";}
         
         let (expectedResult:Result<WorkItem, DomainMessage list>) = Ok expected
@@ -35,7 +35,7 @@ module WorkItem =
     let ``Convert invalid WorkItemDto to Domain``() =    
         let sut = WorkItemDto()
         sut.Id <- 0
-        sut.Type <- 5
+        sut.WorkItemType <- 5
         sut.Description <- "hi"
 
         let numErrors item = 
@@ -50,7 +50,7 @@ module WorkItem =
     let ``Convert invalid ReleaseDto to Domain``() =    
         let sut = ReleaseDto()
         sut.ReleaseDate <- DateTime.UtcNow.AddDays(-10.0)
-        sut.Version <- "1.1.1"
+        sut.ReleaseVersion <- "1.1.1"
         
         Console.WriteLine(sut)
 

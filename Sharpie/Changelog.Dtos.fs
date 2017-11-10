@@ -46,7 +46,7 @@ module WorkItemTypeDto =
 [<AllowNullLiteralAttribute>]
 type WorkItemDto() = 
     member val Id = 0 with get, set
-    member val Type = 0 with get, set
+    member val WorkItemType = 0 with get, set
     member val Description : string = null with get, set
 
 
@@ -58,7 +58,7 @@ module WorkItemDto =
         else
             // Get each validated component
             let workItemIdOrError = createWorkItemId dto.Id
-            let workItemTypeOrError = WorkItemTypeDto.toDomain (enum<WorkItemTypeDto> dto.Type)
+            let workItemTypeOrError = WorkItemTypeDto.toDomain (enum<WorkItemTypeDto> dto.WorkItemType)
             let workItemDescriptionOrError = createWorkItemDescription dto.Description
 
             // Combine the components
@@ -71,7 +71,7 @@ module WorkItemDto =
     let fromDomain (workItem:WorkItem) :WorkItemDto =
         let item = WorkItemDto()
         item.Id <- workItem.Id |> WorkItemId.apply id
-        item.Type <- workItem.Type |> WorkItemTypeDto.fromDomain |> int
+        item.WorkItemType <- workItem.WorkItemType |> WorkItemTypeDto.fromDomain |> int
         item.Description <- workItem.Description |> WorkItemDescription.apply id
 
         item
@@ -92,7 +92,7 @@ let createWorkItems (workItems:WorkItemDto[]) =
 // ============================== 
 [<AllowNullLiteralAttribute>]
 type ReleaseDto() = 
-    member val Version: string = null with get, set
+    member val ReleaseVersion: string = null with get, set
     member val ReleaseDate = DateTime.Now with get, set
     member val Authors : string[] = null with get, set
     member val WorkItems : WorkItemDto[]  = null with get, set
@@ -106,7 +106,7 @@ module ReleaseDto =
             Error([ReleaseIsRequired])
         else
             // Get each validated component
-            let releaseVersionOrError = createVersion dto.Version
+            let releaseVersionOrError = createVersion dto.ReleaseVersion
             let releaseDateOrError = createReleaseDate dto.ReleaseDate
             let releaseAuthorsOrError = createAuthors dto.Authors
             let releaseWorkItems = createWorkItems dto.WorkItems
@@ -124,7 +124,7 @@ module ReleaseDto =
     let fromDomain (release:Release) :ReleaseDto =
         let item = ReleaseDto()
 
-        item.Version    <- release.Version |> fromVersion
+        item.ReleaseVersion <- release.ReleaseVersion |> fromVersion
         item.ReleaseDate <- release.ReleaseDate |> ReleaseDate.apply id
         item.Authors    <- release.Authors
                             |> NonEmptyList.map (ReleaseAuthor.apply id)

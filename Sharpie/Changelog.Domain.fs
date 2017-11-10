@@ -17,13 +17,13 @@ type WorkItemType =
 
 type WorkItem = {
     Id: WorkItemId.T
-    Type: WorkItemType
+    WorkItemType: WorkItemType
     Description: WorkItemDescription.T
 }
 
 
 type Release = {
-    Version: Version
+    ReleaseVersion: Version
     ReleaseDate: ReleaseDate.T
     Authors: NonEmptyList<ReleaseAuthor.T>
     WorkItems: NonEmptyList<WorkItem>
@@ -82,7 +82,7 @@ let createWorkItemDescription description =
 
 
 let createWorkItem workItemId workItemType workItemDescription =
-    {Id = workItemId; Type = workItemType; Description = workItemDescription}
+    {Id = workItemId; WorkItemType = workItemType; Description = workItemDescription}
 
 
 let createVersion version =
@@ -133,7 +133,7 @@ let fromRecordVersion (recordVersion:RecordVersion) =
 
 
 let createRelease version releaseDate authors workItems recordVersion =
-    {   Version = version; 
+    {   ReleaseVersion = version; 
         ReleaseDate = releaseDate; 
         Authors = authors; 
         WorkItems = workItems;
