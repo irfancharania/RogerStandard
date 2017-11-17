@@ -173,13 +173,6 @@
       <HintPath>..\packages\xunit.extensibility.execution.2.3.0\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sharpie\Sharpie.fsproj">
-      <Name>Sharpie</Name>
-      <Project>{2f60c8f7-31f5-4514-bb51-6f47e06eabc3}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

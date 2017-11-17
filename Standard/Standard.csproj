@@ -31,8 +31,4 @@
     <Folder Include="ViewComponents\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sharpie\Sharpie.fsproj" />
-  </ItemGroup>
-
 </Project>
