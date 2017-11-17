@@ -8,13 +8,31 @@
                 "cwd": "${cwd}/ActuallyStandard"
             },
             "command": "./node_modules/.bin/webpack",
-            "args": ["--watch"]
+            "args": ["--watch"],
+            "isBackground": true
         },
         {
-            "label": "Build .NET Solution",
+            "label": "Run API",
+            "type": "process",
+            "command": "dotnet",
+            "args": ["run"],
+            "options": {
+                "cwd": "${cwd}/ActuallyStandard"
+            },
+            "isBackground": true
+
+        },
+        {
+            "label": "Build All",
             "type": "shell",
             "command": "dotnet",
             "args": ["build"]
+        },
+        {
+            "label": "Build Web",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["build", "--project", "ActuallyStandard"]
         }
     ]
 }

@@ -3,31 +3,4 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Changelog</h2>
-
-
-
-<div class="container">
-    @foreach (var release in Model.Releases)
-    {
-        <div class="release">
-            <div class="date">@release.ReleaseDate</div>
-            <h2>@release.ReleaseVersion</h2>
-
-            <p class="authors">
-            @foreach (var author in release.Authors)
-            {
-                <span class="author">@author</span>
-            }
-            </p>
-
-            <ol>
-            @foreach (var item in release.WorkItems)
-            {
-                <li><strong>@item.workItemString</strong> @item.Description</li>
-            }
-            </ol>
-        </div>
-    }
-</div>
-
+<div id="app"></div>

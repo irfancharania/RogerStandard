@@ -3,9 +3,11 @@
         "outDir": "./wwwroot/js",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
+        "strict": true,
+        "module": "es2015",
+        "moduleResolution": "node",
         "target": "es5",
-        "jsx": "react"
+        "lib": ["es2015", "dom"]
     },
     "include": [
         "Assets/src/**/*"
