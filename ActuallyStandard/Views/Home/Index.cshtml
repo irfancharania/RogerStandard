@@ -2,3 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
+@DateTime.Now.ToLongDateString();
+<br/>
+
+@this.Context.Items["culture"]
+
+<br />
+Location: @this.Context.Items["location"]
+<br />
+Cookie Value: @this.Context.Items["cookie_value"]
+
+
+
+<br />
+Resources: @this.Context.Items["resources"]
+
+
+
+
+

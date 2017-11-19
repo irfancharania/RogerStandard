@@ -1,12 +1,17 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using ActuallyStandard.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.Options;
 using Standard.Services;
 
 namespace Standard
@@ -17,7 +22,7 @@ namespace Standard
         {
             var builder = new ConfigurationBuilder()
                                 .SetBasePath(env.ContentRootPath)
-                                .AddJsonFile("appsettings.json")
+                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -26,7 +31,7 @@ namespace Standard
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) => 
+        public void ConfigureServices(IServiceCollection services) =>
             services
                 .AddRouting(
                     options =>
@@ -34,18 +39,41 @@ namespace Standard
                         options.AppendTrailingSlash = true;
                         options.LowercaseUrls = true;
                     })
+                .AddJsonLocalization(options => options.ResourcesPath = "Resources")
+                //.AddLocalization(options => options.ResourcesPath = "Resources")
+                .Configure<RequestLocalizationOptions>(options =>
+                    {
+                        var supportedCultures = new List<CultureInfo> {
+                                                        new CultureInfo("en-CA"),
+                                                        new CultureInfo("fr-CA")
+                        };
+                        options.DefaultRequestCulture = new RequestCulture("en-CA");
+                        options.SupportedCultures = supportedCultures;
+                        options.SupportedUICultures = supportedCultures;
+                        options.RequestCultureProviders
+                                .OfType<CookieRequestCultureProvider>()
+                                .First()
+                                .CookieName = Configuration.GetValue<string>(Config.Localization_DefaultCookieName);
+                    }
+                )
                 .AddResponseCaching()
                 .AddSingleton(Configuration)
                 .AddTransient<IChangelogData, MockChangelogData>()
                 .AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization()
             ;
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app
                             , IHostingEnvironment env
                             , ILoggerFactory loggerFactory
+                            , IStringLocalizerFactory stringLocalizerFactory
                             )
         {
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
             loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
@@ -56,7 +84,7 @@ namespace Standard
             else
             {
                 app.UseResponseCaching();
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error/500");
             }
 
             app.UseStatusCodePages();
@@ -74,18 +102,13 @@ namespace Standard
             });
 
 
-            app.UseMvc(ConfigureRoutes);
-        }
-
-        private void ConfigureRoutes(IRouteBuilder routeBuilder)
-        {
-            routeBuilder.MapRoute("Default",
-                "{controller=Home}/{action=Index}/{id?}"
-                );
-
-            routeBuilder.MapRoute("Admin",
-                "admin/{controller}/{action}/{id?}"
-                );
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id:int?}",
+                    defaults: new { controller = "Home", action = "Index" });
+            });
         }
     }
 }
