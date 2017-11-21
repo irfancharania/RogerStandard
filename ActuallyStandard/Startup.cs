@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using ActuallyStandard.Constants;
+using ActuallyStandard.Helpers;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -46,10 +47,10 @@ namespace Standard
                 .Configure<RequestLocalizationOptions>(options =>
                     {
                         var supportedCultures = new List<CultureInfo> {
-                                                        new CultureInfo("en-CA"),
-                                                        new CultureInfo("fr-CA")
+                                                        LocalizationHelper.GetCultureInfo("en-CA"),
+                                                        LocalizationHelper.GetCultureInfo("fr-CA")
                         };
-                        options.DefaultRequestCulture = new RequestCulture("en-CA");
+                        options.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
                         options.SupportedCultures = supportedCultures;
                         options.SupportedUICultures = supportedCultures;
                         options.RequestCultureProviders
