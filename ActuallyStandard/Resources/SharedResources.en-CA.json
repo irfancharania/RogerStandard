@@ -1,4 +1,6 @@
 ﻿{
     "hello": "hi",
-    "bye": "BYE"
+    "bye": "BYE",
+    "CookieValue": "cookie value",
+    "ResourceValue":  "resource"
 }

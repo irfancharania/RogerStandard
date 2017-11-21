@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Linq;
 using ActuallyStandard.Constants;
+using ActuallyStandard.Localization;
+using ActuallyStandard.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -53,7 +55,7 @@ namespace Standard
                         options.RequestCultureProviders
                                 .OfType<CookieRequestCultureProvider>()
                                 .First()
-                                .CookieName = Configuration.GetValue<string>(Config.Localization_DefaultCookieName);
+                                .CookieName = Configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
                     }
                 )
                 .AddResponseCaching()
@@ -61,7 +63,14 @@ namespace Standard
                 .AddTransient<IChangelogData, MockChangelogData>()
                 .AddMvc()
                 .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        return factory.Create(typeof(SharedResources));
+                    };
+                }
+                )
             ;
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +78,7 @@ namespace Standard
                             , IHostingEnvironment env
                             , ILoggerFactory loggerFactory
                             , IStringLocalizerFactory stringLocalizerFactory
+                            , IConfiguration configuration
                             )
         {
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
@@ -86,6 +96,9 @@ namespace Standard
                 app.UseResponseCaching();
                 app.UseExceptionHandler("/error/500");
             }
+
+            //app.UseMiddleware<PersistLocalizationQueryString>(app, configuration);
+            app.UsePersistLocalizationQueryString(configuration);
 
             app.UseStatusCodePages();
 

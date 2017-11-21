@@ -1,21 +1,19 @@
-﻿@{
+﻿@model ActuallyStandard.ViewModels.HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 @DateTime.Now.ToLongDateString();
-<br/>
 
-@this.Context.Items["culture"]
 
 <br />
-Location: @this.Context.Items["location"]
-<br />
-Cookie Value: @this.Context.Items["cookie_value"]
+<label asp-for="@Model.CookieValue"></label>: @Model.CookieValue
 
 
 
 <br />
-Resources: @this.Context.Items["resources"]
+<label asp-for="@Model.ResourcesValue"></label>: @Model.ResourcesValue
 
 
 
