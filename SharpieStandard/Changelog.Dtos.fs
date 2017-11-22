@@ -59,7 +59,7 @@ type WorkItemDto() =
 // Convertors
 module WorkItemDto =
     let toDomain (dto:WorkItemDto) :Result<WorkItem, _> =
-        if dto = null then 
+        if isNull dto then 
             Error([WorkItemIsRequired])
         else
             // Get each validated component
@@ -84,7 +84,7 @@ module WorkItemDto =
 
 
 let createWorkItems (workItems:WorkItemDto[]) = 
-    if workItems = null || workItems.Length = 0 then
+    if isNull workItems || workItems.Length = 0 then
         Error([WorkItemIsRequired])
     else
         workItems
@@ -98,6 +98,7 @@ let createWorkItems (workItems:WorkItemDto[]) =
 // ============================== 
 [<AllowNullLiteralAttribute>]
 type ReleaseDto() = 
+    member val ReleaseId: Guid = Guid.Empty with get, set
     member val ReleaseVersion: string = null with get, set
     member val ReleaseDate = DateTime.Now with get, set
     member val Authors : string[] = null with get, set
@@ -108,10 +109,11 @@ type ReleaseDto() =
 // Convertors
 module ReleaseDto =
     let toDomain (dto:ReleaseDto) :Result<Release, _> =
-        if dto = null then 
+        if isNull dto then 
             Error([ReleaseIsRequired])
         else
             // Get each validated component
+            let releaseId = createReleaseId dto.ReleaseId
             let releaseVersionOrError = createVersion dto.ReleaseVersion
             let releaseDateOrError = createReleaseDate dto.ReleaseDate
             let releaseAuthorsOrError = createAuthors dto.Authors
@@ -120,7 +122,8 @@ module ReleaseDto =
 
             // Combine the components
             createRelease
-            <!> releaseVersionOrError
+            <!> releaseId
+            <*> releaseVersionOrError
             <*> releaseDateOrError
             <*> releaseAuthorsOrError
             <*> releaseWorkItems
@@ -130,6 +133,7 @@ module ReleaseDto =
     let fromDomain (release:Release) :ReleaseDto =
         let item = ReleaseDto()
 
+        item.ReleaseId <- release.ReleaseId |> fromReleaseId
         item.ReleaseVersion <- release.ReleaseVersion |> fromVersion
         item.ReleaseDate <- release.ReleaseDate |> ReleaseDate.apply id
         item.Authors    <- release.Authors

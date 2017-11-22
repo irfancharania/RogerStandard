@@ -2,6 +2,9 @@ module Changelog.DomainPrimitiveTypes
 
 open System
 
+type GuidError =
+    | Missing
+
 type DateError =
     | MustBeNewerThan of DateTime
     | MustBeOlderThan of DateTime
@@ -58,7 +61,7 @@ module ReleaseAuthor =
 
 
  module ReleaseDate =
-    let minDate = new DateTime(2017,1,1)
+    let minDate = DateTime(2017,1,1)
     let tomorrow = DateTime.UtcNow.Date.AddDays(1.0)
 
     type T = ReleaseDate of DateTime
@@ -72,6 +75,7 @@ module ReleaseAuthor =
 
     let apply f (ReleaseDate dt) = f dt
 
-    
+
+type ReleaseId = ReleaseId of Guid
 type RecordVersion = RecordVersion of byte[]
 

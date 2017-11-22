@@ -2,6 +2,9 @@
 
 open System
 
+type GuidError =
+    | Missing
+
 type DateError =
     | MustBeNewerThan of DateTime
     | MustBeOlderThan of DateTime
@@ -43,6 +46,7 @@ module ReleaseDate =
 
     val create: DateTime -> Result<T, DateError>
     val apply: (DateTime -> 'a) -> T -> 'a
-    
 
+
+type ReleaseId = ReleaseId of Guid
 type RecordVersion = RecordVersion of byte[]

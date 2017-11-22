@@ -23,6 +23,7 @@ type WorkItem = {
 
 
 type Release = {
+    ReleaseId: ReleaseId 
     ReleaseVersion: Version
     ReleaseDate: ReleaseDate.T
     Authors: NonEmptyList<ReleaseAuthor.T>
@@ -49,6 +50,7 @@ type DomainMessage =
     | WorkItemDescriptionMustNotBeShorterThan10Chars
     | WorkItemDescriptionMustNotBeLongerThan100Chars
     | ReleaseIsRequired
+    | ReleaseIdIsRequired
     | ReleaseDateMustBeNewerThan2017
     | ReleaseDateMustBeEqualToOrOlderThanToday
     | ReleaseAuthorIsRequired
@@ -111,7 +113,7 @@ let createReleaseDate date =
 
 
 let createAuthors (authors:string[]) =
-    if authors = null || authors.Length = 0 then
+    if isNull authors || authors.Length = 0 then
         Error([ReleaseAuthorIsRequired])
     else
         let stringToError = function
@@ -124,9 +126,23 @@ let createAuthors (authors:string[]) =
             |> Result.map NonEmptyList.ofList
 
 
+let createReleaseId (releaseId:Guid) :Result<ReleaseId, DomainMessage list> =
+    let result:Guid = 
+        match releaseId = Guid.Empty with
+        | true -> Guid()
+        | false -> releaseId
+
+    Ok(ReleaseId result)
+
+
+let fromReleaseId (releaseId:ReleaseId) =
+    let (ReleaseId result) = releaseId
+    result
+
+
 let createRecordVersion (recordVersion:byte[]) :Result<RecordVersion, DomainMessage list> =
     let result:byte[] = 
-        match recordVersion = null with
+        match isNull recordVersion with
         | true -> [||]
         | false -> recordVersion
 
@@ -138,8 +154,9 @@ let fromRecordVersion (recordVersion:RecordVersion) =
     result
 
 
-let createRelease version releaseDate authors workItems recordVersion =
-    {   ReleaseVersion = version; 
+let createRelease id version releaseDate authors workItems recordVersion =
+    {   ReleaseId = id;
+        ReleaseVersion = version; 
         ReleaseDate = releaseDate; 
         Authors = authors; 
         WorkItems = workItems;
