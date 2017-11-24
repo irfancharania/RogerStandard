@@ -19,6 +19,16 @@ module.exports = {
         */
     },
 
+    devServer: {
+        contentBase: __dirname + "/wwwroot",
+        compress: true,
+        port: 5555,
+        overlay: true,
+        proxy: {
+            "/": {target: "http://localhost:5001"}
+        }
+    },
+
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
