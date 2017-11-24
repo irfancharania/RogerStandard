@@ -24,6 +24,14 @@ const app = new Vue({
 */
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { IndexContainer } from './containers/changelog/IndexContainer'
+import { BrowserRouter, Route } from 'react-router-dom'
+import ChangelogIndex from './containers/changelog/IndexContainer'
 
-ReactDOM.render(<IndexContainer />, document.getElementById("app"))
+const App = <BrowserRouter>
+    <div>
+        <h1>Hello</h1>
+        <Route path="/changelog" component={ChangelogIndex} />
+    </div>
+</BrowserRouter>
+
+ReactDOM.render(App, document.getElementById("app"))

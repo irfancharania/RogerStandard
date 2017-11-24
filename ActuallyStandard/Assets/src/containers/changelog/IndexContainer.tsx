@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Release} from '../../models'
+import { Release } from '../../models'
 import Index from '../../components/changelog/Index'
 
 async function fetchReleases(): Promise<Release[]> {
@@ -12,9 +12,9 @@ interface OwnState {
     releases: Release[]
 }
 
-export class IndexContainer extends React.PureComponent<{}, OwnState> {
+export default class IndexContainer extends React.PureComponent<{}, OwnState> {
     componentWillMount() {
-        this.setState({releases: []})
+        this.setState({ releases: [] })
 
         fetchReleases().then(releases => {
             this.setState((state) => ({ ...state, releases }))
