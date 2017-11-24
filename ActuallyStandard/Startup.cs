@@ -16,6 +16,8 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Standard.Services;
+using Swashbuckle.AspNetCore;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Standard
 {
@@ -35,6 +37,7 @@ namespace Standard
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) =>
+        
             services
                 .AddRouting(
                     options =>
@@ -62,6 +65,11 @@ namespace Standard
                 .AddResponseCaching()
                 .AddSingleton(Configuration)
                 .AddTransient<IChangelogData, MockChangelogData>()
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                }
+                )
                 .AddMvc()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization(options =>
@@ -84,6 +92,12 @@ namespace Standard
         {
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+            });
 
             loggerFactory.AddConsole();
 
