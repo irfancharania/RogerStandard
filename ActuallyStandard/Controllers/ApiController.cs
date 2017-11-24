@@ -23,21 +23,7 @@ namespace ActuallyStandard.Controllers
             _changelogData = changelogData;
             _mapper = mapper;            
         }
-
-        //private void ConfigureMapping() => 
-        //    Mapper.WhenMapping
-        //            .From<Dtos.WorkItemDto>()
-        //            .To<WorkItemViewModel>()
-        //            .Map(ctx => GetLocalizedString(_localizer
-        //                                            , typeof(Dtos.WorkItemTypeDto)
-        //                                            , ctx.Source.WorkItemType))
-        //            .To(dto => dto.WorkItemTypeString);
         
-        //private string GetLocalizedString(IStringLocalizer localizer, Type type, int value) {
-        //    var localized = localizer[$"{type.Name}_{Enum.GetName(type, value)}"];
-        //    return localized;
-        //}
-
         [HttpGet("[action]")]
         public IActionResult Changelog()
         {
