@@ -47,7 +47,13 @@ namespace ActuallyStandard.Middleware
             this IApplicationBuilder app, IConfiguration configuration)
         {
             app.UseWhen(
-                (context) => !string.IsNullOrWhiteSpace(context.Request.Query[Config.Localization_DefaultQueryStringParameter]),
+                (context) =>
+                {
+                    var isNotApi = !context.Request.Path.Value.Contains("/api/");
+                    var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.Localization_DefaultQueryStringParameter]);
+
+                    return isNotApi && hasLangParameter;
+                },
                 (builder) => builder.UseMiddleware<PersistLocalizationQueryString>(app, configuration)
                 );
 

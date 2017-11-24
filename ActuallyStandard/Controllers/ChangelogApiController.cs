@@ -13,15 +13,15 @@ namespace Standard.Controllers
     [Route("api/changelog")]
     public class ChangelogApiController : Controller
     {
-		private IChangelogData _changelogData;
+        private IChangelogData _changelogData;
 
-		public ChangelogApiController(IChangelogData changelogData)
-		{
-			_changelogData = changelogData;
-		}
+        public ChangelogApiController(IChangelogData changelogData)
+        {
+            _changelogData = changelogData;
+        }
 
-		// GET: api/values
-		[HttpGet]
+        // GET: api/values
+        [HttpGet]
         public IEnumerable<ReleaseDto> Get()
         {
             return _changelogData.GetAll();

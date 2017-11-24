@@ -5,6 +5,7 @@ using ActuallyStandard.Constants;
 using ActuallyStandard.Helpers;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Middleware;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Standard.Services;
@@ -34,7 +34,8 @@ namespace Standard
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) =>
+        public void ConfigureServices(IServiceCollection services)
+        {
             services
                 .AddRouting(
                     options =>
@@ -73,12 +74,13 @@ namespace Standard
                 }
                 )
             ;
+            services.AddAutoMapper(typeof(SharedResources));
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app
                             , IHostingEnvironment env
                             , ILoggerFactory loggerFactory
-                            , IStringLocalizerFactory stringLocalizerFactory
                             , IConfiguration configuration
                             )
         {

@@ -15,6 +15,7 @@ namespace Standard.Services
             {
                 new Dtos.ReleaseDto
                 {
+                    ReleaseId = new Guid("4976567d-7f03-431a-8de5-ecaf3073ab03"),
                     ReleaseVersion = "1.0.0",
                     ReleaseDate = DateTime.UtcNow.AddDays(-1),
                     Authors = new string[] { "Irfan", "Adam" },
@@ -28,13 +29,14 @@ namespace Standard.Services
                 },
                 new Dtos.ReleaseDto
                 {
+                    ReleaseId = new Guid("efbf90bf-363f-4b6a-b1b6-3481922770d0"),
                     ReleaseVersion = "1.0.1",
                     ReleaseDate = DateTime.UtcNow,
                     Authors = new string[] { "Adam", "Irfan" },
                     WorkItems = new Dtos.WorkItemDto[] {
                         new Dtos.WorkItemDto{
                             Id = 2,
-                            WorkItemType = 1,
+                            WorkItemType = 2,
                             Description = "hello"
                         }
                     }
