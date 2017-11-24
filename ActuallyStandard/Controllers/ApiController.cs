@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using ActuallyStandard.Localization;
+using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using Standard.Services;
-using Standard.ViewModels;
 
 namespace ActuallyStandard.Controllers
 {
