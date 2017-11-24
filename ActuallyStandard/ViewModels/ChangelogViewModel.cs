@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Changelog;
 
-namespace Standard.ViewModels
+namespace ActuallyStandard.ViewModels
 {
     public class ChangelogViewModel
     {

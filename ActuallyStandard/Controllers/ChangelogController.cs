@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Standard.Services;
-using Standard.ViewModels;
+using ActuallyStandard.Services;
+using ActuallyStandard.ViewModels;
 
-namespace Standard.Controllers
+namespace ActuallyStandard.Controllers
 {
     [Route("[controller]")]
     public class ChangelogController : Controller
@@ -20,7 +20,7 @@ namespace Standard.Controllers
             var model = new ChangelogViewModel()
             {
                 PageTitle = "Changelog",
-                Releases = _changelogData.GetAll()                
+                Releases = _changelogData.GetAll()
             };
             return View(model);
         }

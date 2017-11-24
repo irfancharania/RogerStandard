@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using static Changelog.Dtos;
 
-namespace Standard.Services
+namespace ActuallyStandard.Services
 {
     public interface IChangelogData
     {

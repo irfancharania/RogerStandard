@@ -19,7 +19,7 @@ using Standard.Services;
 using Swashbuckle.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Standard
+namespace ActuallyStandard
 {
     public class Startup
     {

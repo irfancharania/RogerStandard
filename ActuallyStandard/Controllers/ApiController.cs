@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Standard.Services;
-using Standard.ViewModels;
+using ActuallyStandard.Services;
+using ActuallyStandard.ViewModels;
 
 namespace ActuallyStandard.Controllers
 {

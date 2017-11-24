@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using Standard.Models;
+using ActuallyStandard.Models;
 
-namespace Standard.Controllers
+namespace ActuallyStandard.Controllers
 {
     public class HomeController : Controller
     {
