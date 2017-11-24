@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Changelog;
 
-namespace Standard.Services
+namespace ActuallyStandard.Services
 {
     public class MockChangelogData : IChangelogData
     {

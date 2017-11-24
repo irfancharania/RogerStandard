@@ -15,11 +15,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Standard.Services;
+using ActuallyStandard.Services;
 using Swashbuckle.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Standard
+namespace ActuallyStandard
 {
     public class Startup
     {
@@ -95,7 +95,7 @@ namespace Standard
             app.UseRequestLocalization(locOptions.Value);
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => 
+            app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
             });

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Standard.Services;
+using ActuallyStandard.Services;
 using static Changelog.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Standard.Controllers
+namespace ActuallyStandard.Controllers
 {
     [Route("api/changelog")]
     public class ChangelogApiController : Controller

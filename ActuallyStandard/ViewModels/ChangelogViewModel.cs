@@ -2,7 +2,7 @@
 using ActuallyStandard.ViewModels;
 using Changelog;
 
-namespace Standard.ViewModels
+namespace ActuallyStandard.ViewModels
 {
     public class ChangelogViewModel
     {

@@ -2,10 +2,10 @@
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Standard.Services;
-using Standard.ViewModels;
+using ActuallyStandard.Services;
+using ActuallyStandard.ViewModels;
 
-namespace Standard.Controllers
+namespace ActuallyStandard.Controllers
 {
     [Route("[controller]")]
     public class ChangelogController : Controller
