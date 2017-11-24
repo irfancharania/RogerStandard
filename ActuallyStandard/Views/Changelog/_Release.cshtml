@@ -1,0 +1,26 @@
+﻿@model Changelog.Dtos.ReleaseDto
+
+<article>
+    <h2>@Model.ReleaseVersion</h2>
+    <div>@Model.ReleaseDate.ToString("yyyy-MMM-dd")</div>
+    <section>
+        <table border="1" cellpadding="3" cellspacing="3">
+            <tbody>
+                @foreach (var item in Model.WorkItems)
+                {
+                    <tr>
+                        <td>
+                            @Enum.GetName(typeof(Changelog.Dtos.WorkItemTypeDto), item.WorkItemType)
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    <section>
+        @String.Join(", ", Model.Authors)
+    </section>
+</article>
