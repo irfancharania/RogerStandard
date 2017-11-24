@@ -2,5 +2,8 @@
     "hello": "hi",
     "bye": "BYE",
     "CookieValue": "cookie value",
-    "ResourceValue":  "resource"
+    "ResourceValue": "resource",
+    "WorkItemTypeDto_Bug": "Bug",
+    "WorkItemTypeDto_Feature": "Feature",
+    "WorkItemTypeDto_Miscellaneous": "Miscellaneous"
 }

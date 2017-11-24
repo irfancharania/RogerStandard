@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using ActuallyStandard.ViewModels;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
 
@@ -8,10 +11,13 @@ namespace ActuallyStandard.Controllers
     public class ChangelogController : Controller
     {
         private IChangelogData _changelogData;
+        private IMapper _mapper;
 
-        public ChangelogController(IChangelogData changelogData)
+        public ChangelogController(IChangelogData changelogData, 
+                                    IMapper mapper)
         {
             _changelogData = changelogData;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -20,7 +26,7 @@ namespace ActuallyStandard.Controllers
             var model = new ChangelogViewModel()
             {
                 PageTitle = "Changelog",
-                Releases = _changelogData.GetAll()
+                Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
             };
             return View(model);
         }
@@ -31,7 +37,7 @@ namespace ActuallyStandard.Controllers
             var model = new ChangelogViewModel()
             {
                 PageTitle = "Changelog",
-                Releases = _changelogData.GetAll()
+                Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
             };
             return Json(model);
         }

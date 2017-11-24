@@ -1,6 +1,9 @@
 ﻿{
-    "hello": "SJLFJSDDLKDJLS",
-    "bye": "asfa 3 3sf ",
-    "CookieValue": "cookie vaf sadf asue",
-    "ResourceValue": "resource asfasfd a"
+    "hello": "λï",
+    "bye": "ß¥è",
+    "CookieValue": "Çôôƙïè Ʋáℓúè ℓôř",
+    "ResourceValue": "Rèƨôúřçè Váℓúè ℓôř",
+    "WorkItemTypeDto_Bug": "ßúϱ ",
+    "WorkItemTypeDto_Feature": "Fèáƭúřè ℓ",
+    "WorkItemTypeDto_Miscellaneous": "Mïƨçèℓℓáñèôúƨ ℓôř"
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ActuallyStandard.ViewModels;
 using Changelog;
 
 namespace ActuallyStandard.ViewModels
@@ -6,6 +7,6 @@ namespace ActuallyStandard.ViewModels
     public class ChangelogViewModel
     {
         public string PageTitle { get; set; }
-        public IEnumerable<Dtos.ReleaseDto> Releases { get; set; }
+        public IEnumerable<ReleaseViewModel> Releases { get; set; }
     }
 }
