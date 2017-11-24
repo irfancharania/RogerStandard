@@ -7,6 +7,6 @@ export interface WorkItem {
 export interface Release {
     releaseVersion: string,
     releaseDate: string,
-    releaseAuthors: string[],
+    authors: string[],
     workItems: WorkItem[]
 }

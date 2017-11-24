@@ -1,6 +1,7 @@
+/*
 import Vue from "vue"
 import VueRouter from "vue-router"
-import Index from "./components/changelog/Index.vue"
+import Index from "./components/changelog/Index"
 import * as models from './models'
 
 Vue.use(VueRouter)
@@ -19,3 +20,10 @@ const app = new Vue({
     //render: (h) => h(Index),
     //template: "<Index/>",
 }).$mount("#app")
+
+*/
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import { IndexContainer } from './containers/changelog/IndexContainer'
+
+ReactDOM.render(<IndexContainer />, document.getElementById("app"))
