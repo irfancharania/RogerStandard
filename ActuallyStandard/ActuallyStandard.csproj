@@ -33,7 +33,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Common - Copy.Designer.cs">
       <DependentUpon>Common - Copy.resx</DependentUpon>
