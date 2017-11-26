@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ActuallyStandard.Services;
-using ActuallyStandard.ViewModels;
 
 namespace ActuallyStandard.Controllers
 {
@@ -32,6 +32,8 @@ namespace ActuallyStandard.Controllers
         }
 
         [HttpGet("[action]")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ChangelogViewModel), (int)HttpStatusCode.OK)]
         public IActionResult Change()
         {
             var model = new ChangelogViewModel()
@@ -43,10 +45,12 @@ namespace ActuallyStandard.Controllers
         }
 
         [HttpGet("[action]/{version}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
         public IActionResult Change(string version)
         {
-            var change = _changelogData.Get(version);
-            return Json(change);
+            var model = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version));
+            return Json(model);
         }
     }
 }

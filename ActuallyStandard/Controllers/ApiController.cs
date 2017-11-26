@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
@@ -21,26 +22,26 @@ namespace ActuallyStandard.Controllers
         {
             _localizer = localizer;
             _changelogData = changelogData;
-            _mapper = mapper;            
+            _mapper = mapper;
         }
-        
+
         [HttpGet("[action]")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<ReleaseViewModel>), (int)HttpStatusCode.OK)]
         public IActionResult Changelog()
         {
-            var model = new ChangelogViewModel()
-            {
-                Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
-                                 
-            };
+            var model = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll());
             return Json(model);
         }
 
         [HttpGet("[action]/{version}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
 
         public IActionResult Changelog(string version)
         {
-            var change = _changelogData.Get(version);
-            return Json(change);
+            var model = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version));
+            return Json(model);
         }
     }
 }
