@@ -2,12 +2,12 @@
 {
     public class SharedResources
     {
-        public const string Culture = nameof(Culture);
+        public const string Hello = nameof(Hello);
+        public const string Bye = nameof(Bye);
         public const string CookieValue = nameof(CookieValue);
         public const string ResourceValue = nameof(ResourceValue);
-        public const string WorkItemType_Bug = nameof(WorkItemType_Bug);
-        public const string WorkItemType_Feature = nameof(WorkItemType_Feature);
-        public const string WorkItemType_Miscellaneous = nameof(WorkItemType_Miscellaneous); 
-
+        public const string WorkItemTypeDto_Bug = nameof(WorkItemTypeDto_Bug);
+        public const string WorkItemTypeDto_Feature = nameof(WorkItemTypeDto_Feature);
+        public const string WorkItemTypeDto_Miscellaneous = nameof(WorkItemTypeDto_Miscellaneous);
     }
 }

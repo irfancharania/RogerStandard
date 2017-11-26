@@ -1,9 +1,9 @@
-﻿{
-    "hello": "λï",
-    "bye": "ß¥è",
-    "CookieValue": "Çôôƙïè Ʋáℓúè ℓôř",
-    "ResourceValue": "Rèƨôúřçè Váℓúè ℓôř",
-    "WorkItemTypeDto_Bug": "ßúϱ ",
-    "WorkItemTypeDto_Feature": "Fèáƭúřè ℓ",
-    "WorkItemTypeDto_Miscellaneous": "Mïƨçèℓℓáñèôúƨ ℓôř"
+{
+    "Hello": "[ĥį]",
+    "Bye": "[ßŸĒ]",
+    "CookieValue": "[čőőĸįę väľūę]",
+    "ResourceValue": "[řęşőūřčę]",
+    "WorkItemTypeDto_Bug": "[ßūģ]",
+    "WorkItemTypeDto_Feature": "[Fęäŧūřę]",
+    "WorkItemTypeDto_Miscellaneous": "[Mįşčęľľäŉęőūş]"
 }

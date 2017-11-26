@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <propertySets>
+    <propertySet name="GenerateSharedResources" output="..\..\..\..\..\GitHub\RogerStandard\ActuallyStandard\Localization\SharedResources.cs" template="JsonToCSharp.cst">
+      <property name="JsonFile">C:\Users\irfan\Documents\GitHub\RogerStandard\ActuallyStandard\Resources\SharedResources.en-CA.json</property>
+      <property name="TargetNamespace">ActuallyStandard.Localization</property>
+      <property name="OutputFile">C:\Users\irfan\Documents\GitHub\RogerStandard\ActuallyStandard\Localization\SharedResources.cs</property>
+    </propertySet>
+    <propertySet name="Generate PseudoLocalization" output="..\..\..\..\..\GitHub\RogerStandard\ActuallyStandard\Resources\SharedResources.fr-CA.json" template="PseudoLocal.cst">
+      <property name="JsonFile">C:\Users\irfan\Documents\GitHub\RogerStandard\ActuallyStandard\Resources\SharedResources.en-CA.json</property>
+      <property name="OutputFile">C:\Users\irfan\Documents\GitHub\RogerStandard\ActuallyStandard\Resources\SharedResources.fr-CA.json</property>
+    </propertySet>
+  </propertySets>
+</codeSmith>

@@ -1,0 +1,126 @@
+﻿<%-- 
+Name: JsonToCSharp
+Author: Irfan Charania
+Description: Provides strongly-typed access to localization resource files
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Inherits="CodeSmith.BaseTemplates.OutputFileCodeTemplate" ResponseEncoding="UTF-8" Description="Generate strongly-typed access to localization resource files" %>
+<%@ Property Category="1. Required" Name="JsonFile" Type="System.String" Default="sample.json" Optional="False" Description="The full path to the JSON file." Editor="System.Windows.Forms.Design.FileNameEditor, System.Design" %>
+<%@ Property Category="1. Required" Name="TargetNamespace" Type="System.String" Default="JsonClasses" Optional="False" Description="The name of the root class." %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="CodeSmith.Engine.Json" %>
+<%@ Import Namespace="CodeSmith.Engine.Json.Linq" %>
+<%
+if (!File.Exists(Path.Combine(this.CodeTemplateInfo.DirectoryName, JsonFile)))
+    throw new ApplicationException("Json file not found.");
+
+JObject root = JObject.Parse(File.ReadAllText(Path.Combine(this.CodeTemplateInfo.DirectoryName, JsonFile)));
+%>
+namespace <%= TargetNamespace %>
+{
+    public class <%= GetClassName(JsonFile) %>
+    {
+<% RenderProperties(root); %>
+    }
+<%
+Dictionary<string, JObject> objects = GetObjects(root);
+foreach (string name in objects.Keys) {
+%>
+    
+    public class <%= name %>
+    {
+<% RenderProperties(objects[name]); %>
+    }
+<% } %>
+}
+
+<script runat="template">
+private string GetClassName(string pFileName){
+    return (Path.GetFileName(pFileName)).Split('.')[0];
+}
+
+private void RenderProperties(JObject j)
+{
+    if (j == null)
+        return;
+
+    foreach (JProperty p in j.Properties())
+    {
+        Response.WriteLine("        public const " + GetType(p.Value) + " " + p.Name + " = nameof(" + p.Name + ");");
+    }
+}
+
+private string GetType(JToken token)
+{
+    switch (token.Type)
+    {
+        case JTokenType.Array:
+            if (token.HasValues)
+                return "List<" + GetType(token.First) + ">";
+            return "List<object>";
+        case JTokenType.Boolean:
+            return "bool";
+        case JTokenType.Date:
+            return "DateTime";
+        case JTokenType.Float:
+            return "float";
+        case JTokenType.Integer:
+            return "int";
+        case JTokenType.Object:
+            if (token.Parent == null)
+                return "object";
+            if (token.Parent.Type == JTokenType.Property)
+                return StringUtil.ToPascalCase(StringUtil.ToSingular(((JProperty)token.Parent).Name));
+            if (token.Parent.Type == JTokenType.Array && token.Parent.Parent != null && token.Parent.Parent.Type == JTokenType.Property)
+                return StringUtil.ToPascalCase(StringUtil.ToSingular(((JProperty)token.Parent.Parent).Name));
+            return "object";
+        case JTokenType.String:
+            DateTime date;
+            return DateTime.TryParse(token.Value<string>(), out date) ? "DateTime" : "string";
+    }
+
+    return "object";
+}
+
+private static string[] _intrinsicTypes = new[] { "object", "bool", "DateTime", "float", "int", "string" };
+private bool IsIntrinsicType(string type)
+{
+    return _intrinsicTypes.Any(t => t.Equals(type));
+}
+
+private Dictionary<string, JObject> GetObjects(JObject j)
+{
+    var objects = new Dictionary<string, JObject>();
+    GetObjects(j, objects);
+    return objects;
+}
+
+private void GetObjects(JObject j, Dictionary<string, JObject> objects)
+{
+    if (j == null)
+        return;
+
+    if (objects == null)
+        objects = new Dictionary<string, JObject>();
+
+    foreach (JProperty p in j.Properties())
+    {
+        switch (p.Value.Type)
+        {
+            case JTokenType.Array:
+                if (!p.Value.HasValues)
+                    continue;
+                if (!objects.ContainsKey(StringUtil.ToPascalCase(StringUtil.ToSingular(p.Name))) && !IsIntrinsicType(GetType(p.Value.First)))
+                    objects.Add(StringUtil.ToPascalCase(StringUtil.ToSingular(p.Name)), p.Value.First as JObject);
+                GetObjects(p.Value.First as JObject, objects);
+                break;
+            case JTokenType.Object:
+                if (!objects.ContainsKey(StringUtil.ToPascalCase(StringUtil.ToSingular(p.Name))))
+                    objects.Add(StringUtil.ToPascalCase(StringUtil.ToSingular(p.Name)), p.Value as JObject);
+                GetObjects(p.Value as JObject, objects);
+                break;
+        }
+    }
+}
+</script>

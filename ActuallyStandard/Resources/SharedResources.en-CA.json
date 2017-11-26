@@ -1,6 +1,6 @@
 ﻿{
-    "hello": "hi",
-    "bye": "BYE",
+    "Hello": "hi",
+    "Bye": "BYE",
     "CookieValue": "cookie value",
     "ResourceValue": "resource",
     "WorkItemTypeDto_Bug": "Bug",
