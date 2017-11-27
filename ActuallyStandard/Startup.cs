@@ -69,7 +69,7 @@ namespace ActuallyStandard
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
                 }
-                )
+                )                
                 .AddMvc()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization(options =>
@@ -113,10 +113,13 @@ namespace ActuallyStandard
                 app.UseExceptionHandler("/error/500");
             }
 
-            //app.UseMiddleware<PersistLocalizationQueryString>(app, configuration);
             app.UsePersistLocalizationQueryString(configuration);
 
             app.UseStatusCodePages();
+
+            //Registered before static files to always set header
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
 
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -130,6 +133,9 @@ namespace ActuallyStandard
                 }
             });
 
+            //Registered after static files, to set headers for dynamic content.
+            app.UseSecurityHttpHeaders();
+            app.UseRedirectValidation(); //Register this earlier if there's middleware that might redirect.
 
             app.UseMvc(routes =>
             {
