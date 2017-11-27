@@ -4,6 +4,7 @@ using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ActuallyStandard.Controllers
 {
@@ -12,12 +13,15 @@ namespace ActuallyStandard.Controllers
     {
         private IChangelogData _changelogData;
         private IMapper _mapper;
+        private ILogger<ChangelogController> _logger;
 
-        public ChangelogController(IChangelogData changelogData, 
-                                    IMapper mapper)
+        public ChangelogController(IChangelogData changelogData
+                                  , IMapper mapper
+                                  , ILogger<ChangelogController> logger)
         {
             _changelogData = changelogData;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -28,6 +32,9 @@ namespace ActuallyStandard.Controllers
                 PageTitle = "Changelog",
                 Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
             };
+
+            _logger.LogDebug("Changelog - Get results for {title}", model.PageTitle);
+
             return View(model);
         }
 

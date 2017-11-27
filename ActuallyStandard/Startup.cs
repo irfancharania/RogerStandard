@@ -27,7 +27,7 @@ namespace ActuallyStandard
         {
             var builder = new ConfigurationBuilder()
                                 .SetBasePath(env.ContentRootPath)
-                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -87,20 +87,17 @@ namespace ActuallyStandard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app
                             , IHostingEnvironment env
-                            , ILoggerFactory loggerFactory
                             , IConfiguration configuration
                             )
         {
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
-            });
-
-            loggerFactory.AddConsole();
+            app.UseSwagger()
+               .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+                });
 
             if (env.IsDevelopment())
             {
