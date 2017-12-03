@@ -14,6 +14,7 @@ namespace ActuallyStandard
             var configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
                                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                .AddEnvironmentVariables()
                                 .Build();
 
             Log.Logger = new LoggerConfiguration()
@@ -25,7 +26,7 @@ namespace ActuallyStandard
             try
             {
                 Log.Information("Starting web host");
-                BuildWebHost(args).Run();
+                BuildWebHost(configuration, args).Run();
             }
             catch (Exception ex)
             {
@@ -38,10 +39,12 @@ namespace ActuallyStandard
 
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHost BuildWebHost(IConfigurationRoot configuration
+                                            , string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .CaptureStartupErrors(true)
                 .UseStartup<Startup>()
+                .UseConfiguration(configuration)
                 .UseSerilog()
                 .Build();
     }
