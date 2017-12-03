@@ -1,7 +1,9 @@
-﻿
+﻿@model ActuallyStandard.ViewModels.Changelog.DetailViewModel
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.PageTitle;
 }
 
 <h2>Details</h2>
 
+@Html.Partial("_Release", Model.Release)

@@ -2,6 +2,7 @@
 using System.Net;
 using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
+using ActuallyStandard.ViewModels.Changelog;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace ActuallyStandard.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new ChangelogViewModel()
+            var model = new IndexViewModel()
             {
                 PageTitle = "Changelog",
                 Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
@@ -40,10 +41,10 @@ namespace ActuallyStandard.Controllers
 
         [HttpGet("[action]")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(ChangelogViewModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IndexViewModel), (int)HttpStatusCode.OK)]
         public IActionResult Change()
         {
-            var model = new ChangelogViewModel()
+            var model = new IndexViewModel()
             {
                 PageTitle = "Changelog",
                 Releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll())
