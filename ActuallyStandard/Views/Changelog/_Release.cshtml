@@ -1,7 +1,10 @@
 ﻿@model ActuallyStandard.ViewModels.ReleaseViewModel
 
 <article>
-    <h2>@Model.ReleaseVersion</h2>
+    <h2>
+        <a asp-controller="Changelog"
+           asp-action="Details"
+           asp-route-version=@Model.ReleaseVersion>@Model.ReleaseVersion</a></h2>
     <div>@Model.ReleaseDate.ToString("yyyy-MMM-dd")</div>
     <section>
         <table border="1" cellpadding="3" cellspacing="3">

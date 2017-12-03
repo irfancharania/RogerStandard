@@ -39,6 +39,17 @@ namespace ActuallyStandard.Controllers
             return View(model);
         }
 
+        [HttpGet("[action]/{version}")]
+        public IActionResult Details(string version)
+        {
+            var model = new DetailViewModel()
+            {
+                PageTitle = "Details - Version " + version,
+                Release = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version))
+            };
+            return View(model);
+        }
+
         [HttpGet("[action]")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IndexViewModel), (int)HttpStatusCode.OK)]

@@ -8,7 +8,7 @@ module.exports = {
     ],
     output: {
         filename: 'bundle.js',
-        path: __dirname + '/wwwroot/dist'
+        path: __dirname + '/../wwwroot/dist'
     },
 
     resolve: {

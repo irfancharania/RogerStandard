@@ -5,23 +5,24 @@ interface OwnProps {
     release: Release
 }
 
+
 export default function Release(props: OwnProps) {
-    const {release} = props
+    const { release } = props
     return <div className="release">
         <div className="date">{release.releaseDate}</div>
-        <h2>{ release.releaseVersion }</h2>
+        <h2>{release.releaseVersion}</h2>
 
         <p className="authors">
             {release.authors.map(author => {
-                return <span className="author" key={author}> { author }</span>
+                return <span className="author" key={author}> {author}</span>
             })}
         </p>
 
         <ol>
-            { release.workItems.map(item => {
+            {release.workItems.map(item => {
                 return <li key={item.id}>
                     <strong>{item.workItemString}</strong>
-                    { item.description }
+                    {item.description}
                 </li>
             })}
         </ol>

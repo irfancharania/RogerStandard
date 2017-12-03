@@ -34,4 +34,4 @@ const App = <BrowserRouter>
     </div>
 </BrowserRouter>
 
-ReactDOM.render(App, document.getElementById("app"))
+//ReactDOM.render(App, document.getElementById("app"))
