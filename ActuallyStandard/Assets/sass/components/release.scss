@@ -1,0 +1,22 @@
+@import 'defs.scss';
+
+.release {
+    margin: $vs * 2 0;
+    section {
+        margin: $vs 0;
+    }
+
+    .date {
+        color: $text-color-light;
+        font-size: 12px;
+    }
+
+    .authors {
+        .author::after {
+            content:","
+        }
+        .author:last-of-type::after {
+            content: ""
+        }
+    }
+}
