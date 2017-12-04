@@ -15,6 +15,20 @@ namespace ActuallyStandard.Services
             {
                 new Dtos.ReleaseDto
                 {
+                    ReleaseId = new Guid("efbf90bf-363f-4b6a-b1b6-3481922770d0"),
+                    ReleaseVersion = "1.0.1",
+                    ReleaseDate = DateTime.UtcNow,
+                    Authors = new string[] { "Adam", "Irfan" },
+                    WorkItems = new Dtos.WorkItemDto[] {
+                        new Dtos.WorkItemDto{
+                            Id = 3,
+                            WorkItemType = 2,
+                            Description = "hello"
+                        }
+                    }
+                },
+                new Dtos.ReleaseDto
+                {
                     ReleaseId = new Guid("4976567d-7f03-431a-8de5-ecaf3073ab03"),
                     ReleaseVersion = "1.0.0",
                     ReleaseDate = DateTime.UtcNow.AddDays(-1),
@@ -24,20 +38,12 @@ namespace ActuallyStandard.Services
                             Id = 1,
                             WorkItemType = 1,
                             Description = "hi"
-                        }
-                    }
-                },
-                new Dtos.ReleaseDto
-                {
-                    ReleaseId = new Guid("efbf90bf-363f-4b6a-b1b6-3481922770d0"),
-                    ReleaseVersion = "1.0.1",
-                    ReleaseDate = DateTime.UtcNow,
-                    Authors = new string[] { "Adam", "Irfan" },
-                    WorkItems = new Dtos.WorkItemDto[] {
+                        },
+
                         new Dtos.WorkItemDto{
                             Id = 2,
-                            WorkItemType = 2,
-                            Description = "hello"
+                            WorkItemType = 1,
+                            Description = "Fixed bug where mock releases only had one workflow item each"
                         }
                     }
                 }
@@ -52,6 +58,6 @@ namespace ActuallyStandard.Services
             _changelog;
 
 
-        public void Put(Dtos.ReleaseDto item) => _changelog.Add(item);
+        public void Put(Dtos.ReleaseDto item) => _changelog.Prepend(item);
     }
 }
