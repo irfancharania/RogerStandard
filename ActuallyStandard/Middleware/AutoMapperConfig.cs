@@ -3,9 +3,10 @@ using ActuallyStandard.Localization;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Changelog;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Localization;
 
-namespace ActuallyStandard.Infrastructure
+namespace ActuallyStandard.Middleware
 {
     public class AutoMapperConfig : Profile
     {

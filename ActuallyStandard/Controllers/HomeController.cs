@@ -16,8 +16,8 @@ namespace ActuallyStandard.Controllers
     public class HomeController : Controller
     {
         private IHostingEnvironment _env;
-        private IStringLocalizer<SharedResources> _localizer;
-        private IConfiguration _configuration;
+        private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly IConfiguration _configuration;
         public HomeController(IConfiguration configuration,
                                 IHostingEnvironment env,
                                 IStringLocalizer<SharedResources> localizer)
