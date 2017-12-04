@@ -17,7 +17,7 @@ namespace ActuallyStandard.ViewModels
 
     public class WorkItemViewModel
     {
-        public int WorkItemId { get; set; }
+        public int Id { get; set; }
         public int WorkItemType { get; set; }
         [Required]
         public string Description { get; set; }

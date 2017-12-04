@@ -1,14 +1,34 @@
-﻿@model Changelog.Dtos.ReleaseDto
+﻿@model ActuallyStandard.ViewModels.ReleaseViewModel
 
-<article>
-    <h2>@Model.ReleaseVersion</h2>
-    <div>@Model.ReleaseDate.ToString("yyyy-MMM-dd")</div>
-    <section>
-        <table border="1" cellpadding="3" cellspacing="3">
+<article class="release">
+    <div class="date">@Model.ReleaseDate.ToString("yyyy-MMM-dd")</div>
+    <h2>
+        <a asp-controller="Changelog"
+           asp-action="Details"
+           asp-route-version=@Model.ReleaseVersion>Release @Model.ReleaseVersion</a></h2>
+
+    <section class="authors">
+        <strong>Authors:</strong>
+        @String.Join(", ", Model.Authors)
+    </section>
+
+    <section class="work-items">
+        <strong>Work Items</strong>
+        <table class="table work-item-table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
             <tbody>
                 @foreach (var item in Model.WorkItems)
                 {
                     <tr>
+                        <td>
+                            @item.Id
+                        </td>
                         <td>
                             @Enum.GetName(typeof(Changelog.Dtos.WorkItemTypeDto), item.WorkItemType)
                         </td>
@@ -19,8 +39,5 @@
                 }
             </tbody>
         </table>
-    </section>
-    <section>
-        @String.Join(", ", Model.Authors)
     </section>
 </article>

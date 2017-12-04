@@ -3,8 +3,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: [
         './Assets/src/index.tsx',
-        './Assets/sass/index.scss',
-        './node_modules/bootstrap/dist/css/bootstrap.min.css'
+        './node_modules/bootstrap/dist/css/bootstrap.min.css',
+        './Assets/sass/index.scss'
     ],
     output: {
         filename: 'bundle.js',

@@ -3,7 +3,7 @@ import { Release } from '../../models'
 import Index from '../../components/changelog/Index'
 
 async function fetchReleases(): Promise<Release[]> {
-    const response = await fetch("/api/changelog")
+    const response = await fetch("/api/v1/changelog")
     const releases = await response.json()
     return releases
 }

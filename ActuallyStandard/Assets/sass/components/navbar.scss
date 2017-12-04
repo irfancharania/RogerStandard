@@ -1,0 +1,9 @@
+@import 'defs.scss';
+
+.navbar {
+    background: $color1;
+    color: #fff;
+    .nav-link {
+        color: #fff;
+    }
+}

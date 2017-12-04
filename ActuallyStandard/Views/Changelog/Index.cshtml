@@ -1,11 +1,11 @@
-﻿@model ActuallyStandard.ViewModels.ChangelogViewModel
+﻿@model ActuallyStandard.ViewModels.Changelog.IndexViewModel
 @{
     ViewData["Title"] = Model.PageTitle;
 }
 
 <h1>Changelog</h1>
 
-<div>
+<div id="app">
     @foreach (var release in Model.Releases)
     {
         @Html.Partial("_Release", release)

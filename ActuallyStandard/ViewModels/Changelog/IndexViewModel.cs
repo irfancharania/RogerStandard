@@ -2,9 +2,9 @@
 using ActuallyStandard.ViewModels;
 using Changelog;
 
-namespace ActuallyStandard.ViewModels
+namespace ActuallyStandard.ViewModels.Changelog
 {
-    public class ChangelogViewModel
+    public class IndexViewModel
     {
         public string PageTitle { get; set; }
         public IEnumerable<ReleaseViewModel> Releases { get; set; }

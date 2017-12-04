@@ -12,13 +12,7 @@ namespace ActuallyStandard.Middleware
     {
         public AutoMapperConfig()
         {
-            CreateMap<WorkItemViewModel, Dtos.WorkItemDto> ()
-                .ForMember(dest => dest.Id
-                    , opts => opts.MapFrom(src => src.WorkItemId));
-
             CreateMap<Dtos.WorkItemDto, WorkItemViewModel>()
-                .ForMember(dest => dest.WorkItemId
-                        , opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.WorkItemTypeString
                         , opt => opt.ResolveUsing<TranslateResolver, string>(
                                                     src => GetLocalizationKey (typeof(Dtos.WorkItemTypeDto),  

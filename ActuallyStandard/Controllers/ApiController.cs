@@ -70,7 +70,7 @@ namespace ActuallyStandard.Controllers
             else
             {
                 var release = Dtos.ReleaseDtoModule.fromDomain(result.ResultValue);
-                _changelogData.CreateRelease(release);
+                _changelogData.Create(release);
                 return Ok(release);
             }
         }

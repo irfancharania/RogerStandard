@@ -1,0 +1,11 @@
+@import 'defs.scss';
+
+a { color: $color1; }
+
+.body-content{
+    margin: $vs * 2 auto;
+}
+
+table {
+    width: 100%;
+}
