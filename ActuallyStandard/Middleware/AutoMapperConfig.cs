@@ -3,15 +3,22 @@ using ActuallyStandard.Localization;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Changelog;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Localization;
 
-namespace ActuallyStandard.Infrastructure
+namespace ActuallyStandard.Middleware
 {
     public class AutoMapperConfig : Profile
     {
         public AutoMapperConfig()
         {
+            CreateMap<WorkItemViewModel, Dtos.WorkItemDto> ()
+                .ForMember(dest => dest.Id
+                    , opts => opts.MapFrom(src => src.WorkItemId));
+
             CreateMap<Dtos.WorkItemDto, WorkItemViewModel>()
+                .ForMember(dest => dest.WorkItemId
+                        , opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.WorkItemTypeString
                         , opt => opt.ResolveUsing<TranslateResolver, string>(
                                                     src => GetLocalizationKey (typeof(Dtos.WorkItemTypeDto),  

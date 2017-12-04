@@ -7,7 +7,7 @@ namespace ActuallyStandard.Services
 {
     public class MockChangelogData : IChangelogData
     {
-        static List<Dtos.ReleaseDto> _changelog;
+        private static readonly List<Dtos.ReleaseDto> _changelog;
 
         static MockChangelogData()
         {
@@ -50,5 +50,8 @@ namespace ActuallyStandard.Services
 
         public IEnumerable<Dtos.ReleaseDto> GetAll() =>
             _changelog;
+
+        public void CreateRelease(Dtos.ReleaseDto dto) => 
+            _changelog.Add(dto);
     }
 }
