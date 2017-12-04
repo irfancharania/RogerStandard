@@ -1,7 +1,7 @@
 @import 'defs.scss';
 
 .release {
-    margin: $vs * 2 0;
+    margin: $vs * 2 0; 
     section {
         margin: $vs 0;
     }
@@ -13,10 +13,10 @@
 
     .authors {
         .author::after {
-            content:","
+            content:",";
         }
         .author:last-of-type::after {
-            content: ""
+            content: "";
         }
     }
 }
