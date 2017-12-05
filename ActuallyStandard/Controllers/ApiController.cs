@@ -38,7 +38,6 @@ namespace ActuallyStandard.Controllers
         [HttpGet("[action]/{version}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
         public IActionResult Changelog(string version)
         {
             var model = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version));
@@ -48,7 +47,6 @@ namespace ActuallyStandard.Controllers
         [HttpPost("[action]")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
         public IActionResult CreateRelease(ReleaseViewModel model)
         {
             var dto = _mapper.Map<Dtos.ReleaseDto>(model);
@@ -58,7 +56,7 @@ namespace ActuallyStandard.Controllers
             {
                 foreach (var domainMessage in result.ErrorValue)
                 {
-                    var key = string.Concat("Error_", domainMessage.ToString());
+                    var key = string.Concat("Error.", domainMessage.ToString());
                     ModelState.AddModelError(string.Empty, _localizer[key]);
                 }
             }
@@ -78,7 +76,6 @@ namespace ActuallyStandard.Controllers
         [HttpGet("[action]/{version}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
         public IActionResult EditRelease(string version, ReleaseViewModel model) => Ok();
     }
 }

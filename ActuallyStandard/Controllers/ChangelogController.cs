@@ -12,9 +12,9 @@ namespace ActuallyStandard.Controllers
     [Route("[controller]")]
     public class ChangelogController : Controller
     {
-        private IChangelogData _changelogData;
-        private IMapper _mapper;
-        private ILogger<ChangelogController> _logger;
+        private readonly IChangelogData _changelogData;
+        private readonly IMapper _mapper;
+        private readonly ILogger<ChangelogController> _logger;
 
         public ChangelogController(IChangelogData changelogData
                                   , IMapper mapper

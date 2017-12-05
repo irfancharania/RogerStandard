@@ -1,4 +1,7 @@
 ﻿{
     "Hello": "hi",
     "Bye": "bye",
+    "Error.ThisIsRequired": "This is required",
+    "Success.ItSucceeded": "It Succeeded",
+    "Error.ThisIsWrong": "This is wrong" 
 }
