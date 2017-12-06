@@ -100,7 +100,11 @@ let createVersion version =
   
 
 let fromVersion (version:Version) =
-    sprintf "%d.%d.%d.%d" version.Major version.Minor version.Build version.Revision
+    match version.Revision > 0, version.Build > 0, version.Minor > 0 with
+    | false, false, false -> sprintf "%d" version.Major
+    | false, false, true -> sprintf "%d.%d" version.Major version.Minor
+    | false, _, _ ->  sprintf "%d.%d.%d" version.Major version.Minor version.Build
+    | _, _, _ -> sprintf "%d.%d.%d.%d" version.Major version.Minor version.Build version.Revision
 
 
 let createReleaseDate date =
@@ -129,7 +133,7 @@ let createAuthors (authors:string[]) =
 let createReleaseId (releaseId:Guid) :Result<ReleaseId, DomainMessage list> =
     let result:Guid = 
         match releaseId = Guid.Empty with
-        | true -> Guid()
+        | true -> Guid.NewGuid()
         | false -> releaseId
 
     Ok(ReleaseId result)

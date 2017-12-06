@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Services;
@@ -56,7 +57,7 @@ namespace ActuallyStandard.Controllers
             {
                 foreach (var domainMessage in result.ErrorValue)
                 {
-                    var key = string.Concat("Error.", domainMessage.ToString());
+                    var key = string.Concat(nameof(SharedResources.Error), ".", domainMessage.ToString());
                     ModelState.AddModelError(string.Empty, _localizer[key]);
                 }
             }
