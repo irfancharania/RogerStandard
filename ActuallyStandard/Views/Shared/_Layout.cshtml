@@ -1,18 +1,23 @@
-﻿<!doctype html>
+﻿@using ActuallyStandard.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<SharedResources> SharedLocalizer;
+
+<!doctype html>
 <html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>@ViewData["Title"] - Roger Standard</title>
+    <title>@ViewData["Title"] - @SharedLocalizer[SharedResources.Sitemap.ApplicationName]</title>
     <link rel="stylesheet" type="text/css" href="~/dist/styles.css" />
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg">
 
-        <a class="navbar-brand">Roger Standard</a>
+        <a class="navbar-brand">@SharedLocalizer[SharedResources.Sitemap.ApplicationName]</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,10 +25,10 @@
         <div class="" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">@SharedLocalizer[SharedResources.Sitemap.Home]</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Changelog">Changelog</a>
+                    <a class="nav-link" asp-controller="Changelog" asp-action="Index">@SharedLocalizer[SharedResources.Sitemap.Changelog]</a>
                 </li>
             </ul>
 
@@ -37,7 +42,7 @@
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <p>&copy; 2017 - Roger Standard</p>
+                <p>&copy; 2017 - @SharedLocalizer[SharedResources.Sitemap.ApplicationName]</p>
             </div>
             <div class="col-md-6 text-right">
                 @await Html.PartialAsync("_SelectLanguagePartial")

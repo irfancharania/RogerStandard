@@ -1,4 +1,4 @@
-﻿namespace ActuallyStandard.Localization
+namespace ActuallyStandard.Localization
 {
     public class SharedResources
     {
@@ -6,6 +6,12 @@
         public const string Bye = "Bye";
         public const string CookieValue = "CookieValue";
         public const string ResourceValue = "ResourceValue";
+
+        public class Sitemap {
+            public const string ApplicationName = "Sitemap.ApplicationName";
+            public const string Home = "Sitemap.Home";
+            public const string Changelog = "Sitemap.Changelog";
+        }
 
         public class WorkItemTypeDto {
             public const string Bug = "WorkItemTypeDto.Bug";

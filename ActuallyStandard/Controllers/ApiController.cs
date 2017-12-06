@@ -47,8 +47,8 @@ namespace ActuallyStandard.Controllers
 
         [HttpPost("[action]")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-        public IActionResult CreateRelease(ReleaseViewModel model)
+        [ProducesResponseType(typeof(ReleaseCreateViewModel), (int)HttpStatusCode.OK)]
+        public IActionResult Create(ReleaseCreateViewModel model)
         {
             var dto = _mapper.Map<Dtos.ReleaseDto>(model);
             var result = Dtos.ReleaseDtoModule.toDomain(dto);
@@ -76,7 +76,7 @@ namespace ActuallyStandard.Controllers
 
         [HttpGet("[action]/{version}")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-        public IActionResult EditRelease(string version, ReleaseViewModel model) => Ok();
+        [ProducesResponseType(typeof(ReleaseEditViewModel), (int)HttpStatusCode.OK)]
+        public IActionResult Edit(string version, ReleaseEditViewModel model) => Ok();
     }
 }

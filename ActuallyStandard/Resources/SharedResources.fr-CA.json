@@ -1,8 +1,11 @@
-{
+﻿{
     "Hello": "[ĥį]",
     "Bye": "[ßŸĒ]",
     "CookieValue": "[čőőĸįę väľūę]",
     "ResourceValue": "[řęşőūřčę]",
+    "Sitemap.ApplicationName": "[Ŗőģęř Ŝŧäŉđäřđ]",
+    "Sitemap.Home": "[Ħőmę]",
+    "Sitemap.Changelog": "[Cĥäŉģęľőģ]",
     "WorkItemTypeDto.Bug": "[ßūģ]",
     "WorkItemTypeDto.Feature": "[Fęäŧūřę]",
     "WorkItemTypeDto.Miscellaneous": "[Mįşčęľľäŉęőūş]",

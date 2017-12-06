@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ActuallyStandard.Constants;
 
 namespace ActuallyStandard.ViewModels
 {
     public class HomeViewModel
     {
-        
         public string PageTitle { get; set; }
         public string Locale { get; set; }
 
