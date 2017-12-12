@@ -58,6 +58,7 @@ namespace ActuallyStandard
                 .AddResponseCaching()
                 .AddSingleton(Configuration)
                 .AddTransient<IChangelogData, MockChangelogData>()
+                .AddScoped<IFeedService, FeedService>()
                 .AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -67,10 +68,8 @@ namespace ActuallyStandard
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization(options =>
                 {
-                    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                    {
-                        return factory.Create(typeof(SharedResources));
-                    };
+                    options.DataAnnotationLocalizerProvider = 
+                        (type, factory) => factory.Create(typeof(SharedResources));
                 }
                 )
             ;

@@ -46,12 +46,18 @@ namespace ActuallyStandard.Controllers
         }
 
         [HttpGet("[action]/{version}")]
-        public ViewResult Details(string version)
+        public IActionResult Details(string version)
         {
+            var release = _changelogData.Get(version);
+            if (release == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             var model = new DetailViewModel()
             {
                 PageTitle = "Details - Version " + version,
-                Release = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version))
+                Release = _mapper.Map<ReleaseViewModel>(release)
             };
             return View(model);
         }
