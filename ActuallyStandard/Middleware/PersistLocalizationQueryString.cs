@@ -13,8 +13,8 @@ namespace ActuallyStandard.Middleware
     public class PersistLocalizationQueryString
     {
         private readonly RequestDelegate _next;
-        private IApplicationBuilder _app;
-        private IConfiguration _configuration;
+        private readonly IApplicationBuilder _app;
+        private readonly IConfiguration _configuration;
 
         public PersistLocalizationQueryString(RequestDelegate next
                                     , IApplicationBuilder app
