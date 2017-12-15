@@ -1,6 +1,13 @@
+addons:
+    sonarcloud:
+        organization: "roger-labs"
+        token:
+            secure: "o6rRI53WZZjL5DUnTNZDlcN5LdXCGh8GRroPF29nef/5bxcHCZSPW9aK2bnA/d5npbEQSEUhYbNPuvQi7v0KfgGbRDIPjvB2QRo2Xox2cL09uTgwcW5WfhJ88NFdDDUy/gyRE0Y/lrKvUaDuCR3NI0DLUEArBpR1BImyk08JYq4WFQLM21QBTLNEqRc6PNVpMUqoJmDvVP0M3bejTHlPrJ/f9++G92/avVyNGXD1KdswJyf3i099gXL5DSujWQqwNWGCJVuaeSnFReJ+KpSkQFNzRU5y5A/R5PLP7hrhjpGYfuaMwwSrC5XtfMWTh4pIWo1H8OoaSGq5CkMqtFQlh5+Z5utFJ3OyyUlGeSkwTrykY1+k/2LOP5RWrtDLGQP3gt96QBWvMpD3FR/JW/8tfjalgRu7ucu06KUsff+YY3ZcWOcunO1BVeh3C89OYoPoREOcDjhudimkTQdaKfsiXrLl+z/uv+jMfb7dV6o1IJDWDQIqEqu1zgzGTS2q2SjEOeMM+cqW891ZpmHaql+3xzrqIWliZmzisrcpTzx8LysV/RYCUpFFhhYHuLWs927J2jiRod2J//87sd5vMkF9WJ11KNkqaVPB2S5gLlLZhUqn8Vglj5xb7WSMK3razkw/jQZyO0YencBx4rsQJFcIZeoGwRTi3hYIhawjCIW72B8="
 language: csharp
+dist: trusty
 mono: none
 dotnet: 2.0.0
 script:
     - dotnet restore
     - dotnet build
+    - sonar-scanner
