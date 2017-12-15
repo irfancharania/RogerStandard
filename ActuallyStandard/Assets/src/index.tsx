@@ -11,7 +11,7 @@ const router = new VueRouter({
         { path: "/changelog", component: Index },
         { path: "/", component: Index }
     ],
-    
+
 })
 
 const app = new Vue({
@@ -22,8 +22,8 @@ const app = new Vue({
 }).$mount("#app")
 
 */
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import ChangelogIndex from './containers/changelog/IndexContainer'
 
@@ -34,4 +34,4 @@ const App = <BrowserRouter>
     </div>
 </BrowserRouter>
 
-//ReactDOM.render(App, document.getElementById("app"))
+// ReactDOM.render(App, document.getElementById("app"))
