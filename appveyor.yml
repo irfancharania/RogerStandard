@@ -3,5 +3,5 @@ before_build:
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
   - MSBuild.SonarQube.Runner.exe begin /k:"rogerstandard" /d:"sonar.organization=roger-labs" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=cdb1f6177692bc5132ee3e94ae88617951b67221"
-  - msbuild "RogerStandard.sln"
+  - dotnet build
   - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=cdb1f6177692bc5132ee3e94ae88617951b67221"
