@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using ActuallyStandard.ViewModels;
-using Changelog;
 
 namespace ActuallyStandard.ViewModels.Changelog
 {

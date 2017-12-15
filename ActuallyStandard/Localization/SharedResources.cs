@@ -1,32 +1,44 @@
-﻿namespace ActuallyStandard.Localization
+namespace ActuallyStandard.Localization
 {
     public class SharedResources
     {
-        public const string Hello = nameof(Hello);
-        public const string Bye = nameof(Bye);
-        public const string CookieValue = nameof(CookieValue);
-        public const string ResourceValue = nameof(ResourceValue);
-        public const string WorkItemTypeDto_Bug = nameof(WorkItemTypeDto_Bug);
-        public const string WorkItemTypeDto_Feature = nameof(WorkItemTypeDto_Feature);
-        public const string WorkItemTypeDto_Miscellaneous = nameof(WorkItemTypeDto_Miscellaneous);
-        public const string Error_VersionNumberUnableToParse = nameof(Error_VersionNumberUnableToParse);
-        public const string Error_VersionNumberIsRequired = nameof(Error_VersionNumberIsRequired);
-        public const string Error_VersionNumberHasFewerThanTwoOrMoreThanFour = nameof(Error_VersionNumberHasFewerThanTwoOrMoreThanFour);
-        public const string Error_VersionNumberIncorrectFormat = nameof(Error_VersionNumberIncorrectFormat);
-        public const string Error_VersionNumberLessThanZero = nameof(Error_VersionNumberLessThanZero);
-        public const string Error_VersionNumberGreaterThanMaximum = nameof(Error_VersionNumberGreaterThanMaximum);
-        public const string Error_WorkItemIsRequired = nameof(Error_WorkItemIsRequired);
-        public const string Error_WorkItemIdMustBePositive = nameof(Error_WorkItemIdMustBePositive);
-        public const string Error_WorkItemIdUnknownError = nameof(Error_WorkItemIdUnknownError);
-        public const string Error_WorkItemTypeInvalidValueProvided = nameof(Error_WorkItemTypeInvalidValueProvided);
-        public const string Error_WorkItemDescriptionIsRequired = nameof(Error_WorkItemDescriptionIsRequired);
-        public const string Error_WorkItemDescriptionMustNotBeShorterThan10Chars = nameof(Error_WorkItemDescriptionMustNotBeShorterThan10Chars);
-        public const string Error_WorkItemDescriptionMustNotBeLongerThan100Chars = nameof(Error_WorkItemDescriptionMustNotBeLongerThan100Chars);
-        public const string Error_ReleaseIsRequired = nameof(Error_ReleaseIsRequired);
-        public const string Error_ReleaseIdIsRequired = nameof(Error_ReleaseIdIsRequired);
-        public const string Error_ReleaseDateMustBeNewerThan2017 = nameof(Error_ReleaseDateMustBeNewerThan2017);
-        public const string Error_ReleaseDateMustBeEqualToOrOlderThanToday = nameof(Error_ReleaseDateMustBeEqualToOrOlderThanToday);
-        public const string Error_ReleaseAuthorIsRequired = nameof(Error_ReleaseAuthorIsRequired);
-        public const string Error_ReleaseAuthorUnknownError = nameof(Error_ReleaseAuthorUnknownError);
+        public const string Hello = "Hello";
+        public const string Bye = "Bye";
+        public const string CookieValue = "CookieValue";
+        public const string ResourceValue = "ResourceValue";
+
+        public class Sitemap {
+            public const string ApplicationName = "Sitemap.ApplicationName";
+            public const string Home = "Sitemap.Home";
+            public const string Changelog = "Sitemap.Changelog";
+        }
+
+        public class WorkItemTypeDto {
+            public const string Bug = "WorkItemTypeDto.Bug";
+            public const string Feature = "WorkItemTypeDto.Feature";
+            public const string Miscellaneous = "WorkItemTypeDto.Miscellaneous";
+        }
+
+        public class Error {
+            public const string VersionNumberUnableToParse = "Error.VersionNumberUnableToParse";
+            public const string VersionNumberIsRequired = "Error.VersionNumberIsRequired";
+            public const string VersionNumberHasFewerThanTwoOrMoreThanFour = "Error.VersionNumberHasFewerThanTwoOrMoreThanFour";
+            public const string VersionNumberIncorrectFormat = "Error.VersionNumberIncorrectFormat";
+            public const string VersionNumberLessThanZero = "Error.VersionNumberLessThanZero";
+            public const string VersionNumberGreaterThanMaximum = "Error.VersionNumberGreaterThanMaximum";
+            public const string WorkItemIsRequired = "Error.WorkItemIsRequired";
+            public const string WorkItemIdMustBePositive = "Error.WorkItemIdMustBePositive";
+            public const string WorkItemIdUnknownError = "Error.WorkItemIdUnknownError";
+            public const string WorkItemTypeInvalidValueProvided = "Error.WorkItemTypeInvalidValueProvided";
+            public const string WorkItemDescriptionIsRequired = "Error.WorkItemDescriptionIsRequired";
+            public const string WorkItemDescriptionMustNotBeShorterThan10Chars = "Error.WorkItemDescriptionMustNotBeShorterThan10Chars";
+            public const string WorkItemDescriptionMustNotBeLongerThan100Chars = "Error.WorkItemDescriptionMustNotBeLongerThan100Chars";
+            public const string ReleaseIsRequired = "Error.ReleaseIsRequired";
+            public const string ReleaseIdIsRequired = "Error.ReleaseIdIsRequired";
+            public const string ReleaseDateMustBeNewerThan2017 = "Error.ReleaseDateMustBeNewerThan2017";
+            public const string ReleaseDateMustBeEqualToOrOlderThanToday = "Error.ReleaseDateMustBeEqualToOrOlderThanToday";
+            public const string ReleaseAuthorIsRequired = "Error.ReleaseAuthorIsRequired";
+            public const string ReleaseAuthorUnknownError = "Error.ReleaseAuthorUnknownError";
+        }
     }
 }

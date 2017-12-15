@@ -20,7 +20,7 @@ namespace ActuallyStandard.Middleware
         }
 
         private string GetLocalizationKey(Type type, int value) 
-            => $"{type.Name}_{Enum.GetName(type, value)}";
+            => $"{type.Name}.{Enum.GetName(type, value)}";
 
         public class TranslateResolver : IMemberValueResolver<object, object, string, string>
         {

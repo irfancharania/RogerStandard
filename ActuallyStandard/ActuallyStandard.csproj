@@ -12,9 +12,10 @@
     <Content Remove="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-	<PackageReference Include="AutoMapper" Version="6.2.1" />
+	<PackageReference Include="AutoMapper" Version="6.2.2" />
 	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="My.Extensions.Localization.Json" Version="1.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="1.1.0" />
@@ -28,13 +29,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

@@ -23,16 +23,6 @@ namespace <%= TargetNamespace %>
     {
 <% RenderProperties(root); %>
     }
-<%
-Dictionary<string, JObject> objects = GetObjects(root);
-foreach (string name in objects.Keys) {
-%>
-    
-    public class <%= name %>
-    {
-<% RenderProperties(objects[name]); %>
-    }
-<% } %>
 }
 
 <script runat="template">
@@ -45,9 +35,46 @@ private void RenderProperties(JObject j)
     if (j == null)
         return;
 
+    var temp = new Dictionary<string, List<Tuple<string, string>>>();
+    
     foreach (JProperty p in j.Properties())
     {
-        Response.WriteLine("        public const " + GetType(p.Value) + " " + p.Name + " = nameof(" + p.Name + ");");
+        if (p.Name.Contains(".")){
+            AddToDictionary(temp, p);
+        }
+        else{
+            Response.WriteLine("        public const " + GetType(p.Value) + " " + p.Name + " = \"" + p.Name + "\";");
+        }
+    }
+    
+    PrintDictionaryItems(temp);
+}
+
+private void PrintDictionaryItems(Dictionary<string, List<Tuple<string, string>>> dic){
+    foreach (var item in dic){
+        Response.WriteLine();        
+        Response.WriteLine("        public class " + item.Key + " {");
+        
+        foreach (var l in item.Value){
+            Response.WriteLine("            public const " + GetType(l.Item2) + " " + l.Item1 + " = \"" + l.Item2 + "\";");
+        }
+        
+        Response.WriteLine("        }");
+    }
+}
+
+private void AddToDictionary(Dictionary<string, List<Tuple<string, string>>> dic, JProperty p){
+    var nameArr = p.Name.Split('.');
+    var className = nameArr[0];
+    var propName = nameArr[1];
+    
+    if (dic.Keys.Contains(className)){
+        dic[className].Add(new Tuple<string, string>(propName, p.Name));
+    }
+    else{
+        dic.Add(className, new List<Tuple<string, string>>(){
+            new Tuple<string, string>(propName, p.Name)
+        });
     }
 }
 

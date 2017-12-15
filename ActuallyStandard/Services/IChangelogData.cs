@@ -7,7 +7,6 @@ namespace ActuallyStandard.Services
     {
         IEnumerable<ReleaseDto> GetAll();
         ReleaseDto Get(string version);
-
         void Create(ReleaseDto release);
 
     }

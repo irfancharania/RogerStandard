@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Services;
@@ -38,7 +39,6 @@ namespace ActuallyStandard.Controllers
         [HttpGet("[action]/{version}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
         public IActionResult Changelog(string version)
         {
             var model = _mapper.Map<ReleaseViewModel>(_changelogData.Get(version));
@@ -47,9 +47,8 @@ namespace ActuallyStandard.Controllers
 
         [HttpPost("[action]")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
-        public IActionResult CreateRelease(ReleaseViewModel model)
+        [ProducesResponseType(typeof(ReleaseCreateViewModel), (int)HttpStatusCode.OK)]
+        public IActionResult Create(ReleaseCreateViewModel model)
         {
             var dto = _mapper.Map<Dtos.ReleaseDto>(model);
             var result = Dtos.ReleaseDtoModule.toDomain(dto);
@@ -58,7 +57,7 @@ namespace ActuallyStandard.Controllers
             {
                 foreach (var domainMessage in result.ErrorValue)
                 {
-                    var key = string.Concat("Error_", domainMessage.ToString());
+                    var key = string.Concat(nameof(SharedResources.Error), ".", domainMessage.ToString());
                     ModelState.AddModelError(string.Empty, _localizer[key]);
                 }
             }
@@ -77,8 +76,7 @@ namespace ActuallyStandard.Controllers
 
         [HttpGet("[action]/{version}")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(ReleaseViewModel), (int)HttpStatusCode.OK)]
-
-        public IActionResult EditRelease(string version, ReleaseViewModel model) => Ok();
+        [ProducesResponseType(typeof(ReleaseEditViewModel), (int)HttpStatusCode.OK)]
+        public IActionResult Edit(string version, ReleaseEditViewModel model) => Ok();
     }
 }
