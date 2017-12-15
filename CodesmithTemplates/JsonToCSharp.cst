@@ -53,7 +53,7 @@ private void RenderProperties(JObject j)
 private void PrintDictionaryItems(Dictionary<string, List<Tuple<string, string>>> dic){
     foreach (var item in dic){
         Response.WriteLine();        
-        Response.WriteLine("        public class " + item.Key + " {");
+        Response.WriteLine("        public static class " + item.Key + " {");
         
         foreach (var l in item.Value){
             Response.WriteLine("            public const " + GetType(l.Item2) + " " + l.Item1 + " = \"" + l.Item2 + "\";");

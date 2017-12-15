@@ -7,19 +7,19 @@ namespace ActuallyStandard.Localization
         public const string CookieValue = "CookieValue";
         public const string ResourceValue = "ResourceValue";
 
-        public class Sitemap {
+        public static class Sitemap {
             public const string ApplicationName = "Sitemap.ApplicationName";
             public const string Home = "Sitemap.Home";
             public const string Changelog = "Sitemap.Changelog";
         }
 
-        public class WorkItemTypeDto {
+        public static class WorkItemTypeDto {
             public const string Bug = "WorkItemTypeDto.Bug";
             public const string Feature = "WorkItemTypeDto.Feature";
             public const string Miscellaneous = "WorkItemTypeDto.Miscellaneous";
         }
 
-        public class Error {
+        public static class Error {
             public const string VersionNumberUnableToParse = "Error.VersionNumberUnableToParse";
             public const string VersionNumberIsRequired = "Error.VersionNumberIsRequired";
             public const string VersionNumberHasFewerThanTwoOrMoreThanFour = "Error.VersionNumberHasFewerThanTwoOrMoreThanFour";

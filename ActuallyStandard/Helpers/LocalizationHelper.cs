@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Localization;
 
 namespace ActuallyStandard.Helpers
 {
-    public class LocalizationHelper
+    public static class LocalizationHelper
     {
         public static CultureInfo GetCultureInfo(string lang) {
             var cultureInfo = new CultureInfo(lang);

@@ -57,7 +57,7 @@ namespace ActuallyStandard.Services
         public IEnumerable<Dtos.ReleaseDto> GetAll() =>
             _changelog;
 
-        public void Create(Dtos.ReleaseDto dto) =>
-            _changelog.Add(dto);
+        public void Create(Dtos.ReleaseDto release) =>
+            _changelog.Add(release);
     }
 }
