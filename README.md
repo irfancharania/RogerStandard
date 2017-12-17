@@ -1,4 +1,4 @@
 # RogerStandard
 F# + C# on Windows + Mac experiment
 
-![](https://travis-ci.org/roger-labs/RogerStandard.svg?branch=master)
+![](https://ci.appveyor.com/api/projects/status/github/roger-labs/RogerStandard?branch=master&svg=true)
