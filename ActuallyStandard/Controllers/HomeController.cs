@@ -66,7 +66,6 @@ namespace ActuallyStandard.Controllers
         }
 
         [ResponseCache(Duration = 10000)]
-        [Route("feed")]
         public async Task<ActionResult> Feed()
         {
             var releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll());

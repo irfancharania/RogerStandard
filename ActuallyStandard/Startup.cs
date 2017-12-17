@@ -62,6 +62,7 @@ namespace ActuallyStandard
                 .AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    c.DescribeAllEnumsAsStrings();
                 }
                 )                
                 .AddMvc()
@@ -128,6 +129,10 @@ namespace ActuallyStandard
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "feed",
+                    template: "feed",
+                    defaults: new { controller = "Home", action = "Feed" });
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id:int?}",

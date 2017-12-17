@@ -49,10 +49,11 @@ namespace ActuallyStandard.Middleware
             app.UseWhen(
                 (context) =>
                 {
-                    var isNotApi = !context.Request.Path.Value.Contains("/api/");
+                    var path = context.Request.Path.Value;
+                    var validPath = !(path.Contains("/api/") || path.Contains("/feed"));
                     var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.Localization_DefaultQueryStringParameter]);
 
-                    return isNotApi && hasLangParameter;
+                    return validPath && hasLangParameter;
                 },
                 (builder) => builder.UseMiddleware<PersistLocalizationQueryString>(app, configuration)
                 );
