@@ -69,7 +69,7 @@ namespace ActuallyStandard.Controllers
         public async Task<ActionResult> Feed()
         {
             var releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll());
-            return Content(await _feedService.GenerateFeed(releases), "application/atom+xml");
+            return Content(await _feedService.GenerateFeed(releases), "application/atom+xml; charset=utf8");
         }
 
         public IActionResult Error() =>
