@@ -7,11 +7,11 @@ namespace ActuallyStandard.Services
 {
     public class MockChangelogData : IChangelogData
     {
-        private static List<Dtos.ReleaseDto> _changelog;
+        public static readonly List<Dtos.ReleaseDto> Changelog;
 
         static MockChangelogData()
         {
-            _changelog = new List<Dtos.ReleaseDto>
+            Changelog = new List<Dtos.ReleaseDto>
             {
                 new Dtos.ReleaseDto
                 {
@@ -52,12 +52,15 @@ namespace ActuallyStandard.Services
         }
 
         public Dtos.ReleaseDto Get(string version) =>
-            _changelog.FirstOrDefault(x => x.ReleaseVersion == version);
+            Changelog.FirstOrDefault(x => x.ReleaseVersion == version);
 
         public IEnumerable<Dtos.ReleaseDto> GetAll() =>
-            _changelog;
+            Changelog;
 
         public void Create(Dtos.ReleaseDto release) =>
-            _changelog.Add(release);
+            Changelog.Add(release);
+
+        public IEnumerable<Dtos.ReleaseDto> GetLatest(int limit) => 
+            Changelog.OrderByDescending(x => x.ReleaseDate).Take(limit);
     }
 }

@@ -130,10 +130,6 @@ namespace ActuallyStandard
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "feed",
-                    template: "feed",
-                    defaults: new { controller = "Home", action = "Feed" });
-                routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id:int?}",
                     defaults: new { controller = "Home", action = "Index" });
