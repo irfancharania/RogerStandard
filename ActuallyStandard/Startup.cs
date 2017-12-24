@@ -52,7 +52,7 @@ namespace ActuallyStandard
                         options.RequestCultureProviders
                                 .OfType<CookieRequestCultureProvider>()
                                 .First()
-                                .CookieName = Configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+                                .CookieName = Configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
                     }
                 )
                 .AddResponseCaching()

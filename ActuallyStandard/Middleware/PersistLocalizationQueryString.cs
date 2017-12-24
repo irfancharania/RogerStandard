@@ -27,13 +27,13 @@ namespace ActuallyStandard.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            var lang = context.Request.Query[Config.Localization_DefaultQueryStringParameter];
+            var lang = context.Request.Query[Config.LocalizationDefaultQueryStringParameter];
             var locOptions = _app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
 
             var culture = new CultureInfo(lang);
             if (locOptions.Value.SupportedCultures.Contains(culture))
             {
-                var defaultCookieName = _configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+                var defaultCookieName = _configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
                 LocalizationHelper.SetCultureCookie(context, defaultCookieName, lang);
             }
 
@@ -51,7 +51,7 @@ namespace ActuallyStandard.Middleware
                 {
                     var path = context.Request.Path.Value;
                     var validPath = !(path.Contains("/api/") || path.Contains("/feed"));
-                    var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.Localization_DefaultQueryStringParameter]);
+                    var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.LocalizationDefaultQueryStringParameter]);
 
                     return validPath && hasLangParameter;
                 },

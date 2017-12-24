@@ -47,7 +47,7 @@ namespace ActuallyStandard.Controllers
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            var defaultCookieName = _configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+            var defaultCookieName = _configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
             LocalizationHelper.SetCultureCookie(HttpContext, defaultCookieName, culture);
 
             return LocalRedirect(returnUrl);

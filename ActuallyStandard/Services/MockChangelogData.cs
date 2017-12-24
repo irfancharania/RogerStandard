@@ -60,7 +60,7 @@ namespace ActuallyStandard.Services
         public void Create(Dtos.ReleaseDto release) =>
             Changelog.Add(release);
 
-        public IEnumerable<Dtos.ReleaseDto> GetLatest(int limit) => 
+        public IEnumerable<Dtos.ReleaseDto> GetLatest(byte limit) => 
             Changelog.OrderByDescending(x => x.ReleaseDate).Take(limit);
     }
 }

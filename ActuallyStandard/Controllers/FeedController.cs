@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ActuallyStandard.Constants;
 using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
@@ -22,10 +23,10 @@ namespace ActuallyStandard.Controllers
             _changelogData = changelogData;
         }
 
-        [ResponseCache(Duration = 10000)]
+        [ResponseCache(Duration = 10000, VaryByQueryKeys = new[] { Config.LocalizationDefaultQueryStringParameter })]
         public async Task<ActionResult> Index()
         {
-            var releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll());
+            var releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetLatest(Config.FeedMaxEntriesToDisplay));
             return Content(await _feedService.GenerateFeed(releases), "application/atom+xml; charset=utf8");
         }
     }
