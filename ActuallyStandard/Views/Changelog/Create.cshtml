@@ -1,10 +1,18 @@
-﻿@model ActuallyStandard.ViewModels.Changelog.CreateViewModel
+﻿@inject IHtmlLocalizer<SharedResources> Localizer
+
+@model ActuallyStandard.ViewModels.ReleaseCreateViewModel
 @{
     ViewData["Title"] = "Create";
 }
 
 <h2>Create</h2>
-
-<article class="release">
-    
-</article>
+<form asp-controller="Changelog" asp-action="Create" method="post">
+    <p>
+        <label asp-for="ReleaseVersion">@Localizer[SharedResources.Release.ReleaseVersion]</label>
+        <input asp-for="ReleaseVersion" />
+    </p>
+    <p>
+        <label asp-for="ReleaseDate">@Localizer[SharedResources.Release.ReleaseDate]</label>
+        <input asp-for="ReleaseDate" />
+    </p>
+</form>

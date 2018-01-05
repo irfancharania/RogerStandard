@@ -27,6 +27,7 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import ChangelogIndex from './containers/changelog/IndexContainer'
 
+
 const App = <BrowserRouter>
     <div>
         <h1>Hello</h1>
@@ -35,3 +36,11 @@ const App = <BrowserRouter>
 </BrowserRouter>
 
 // ReactDOM.render(App, document.getElementById("app"))
+
+// Language switcher
+const selectLanguage = document.querySelector('#selectLanguage select');
+if (selectLanguage) {
+    selectLanguage.addEventListener('change', () => {
+            (document.querySelector('#selectLanguage') as HTMLFormElement).submit();
+        });
+}

@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Builder
-@using Microsoft.AspNetCore.Http.Features
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Options
 
-@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResources> Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
 @{
@@ -14,8 +13,8 @@
         .ToList();
 }
 
-<div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+<div title="@Localizer["Request culture provider"]: @requestCulture?.Provider?.GetType().Name">
     <form id="selectLanguage" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" method="post" class="form-horizontal" role="form">
-        @Localizer["Language:"] <select name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
+        @Localizer[SharedResources.Language]: <select name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
     </form>
 </div>
