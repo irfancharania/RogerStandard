@@ -12,6 +12,9 @@
             public const string ApplicationName = "Sitemap.ApplicationName";
             public const string Home = "Sitemap.Home";
             public const string Changelog = "Sitemap.Changelog";
+            public const string ChangelogCreate = "Sitemap.ChangelogCreate";
+            public const string ChangelogEdit = "Sitemap.ChangelogEdit";
+            public const string ChangelogDetails = "Sitemap.ChangelogDetails";
         }
 
         public static class WorkItemTypeDto {
