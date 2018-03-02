@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using ActuallyStandard.Constants;
 using ActuallyStandard.Helpers;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Models;
-using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
-using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,26 +15,15 @@ namespace ActuallyStandard.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHostingEnvironment _env;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IConfiguration _configuration;
-        private readonly IFeedService _feedService;
-        private readonly IChangelogData _changelogData;
-        private readonly IMapper _mapper;
 
         public HomeController(IConfiguration configuration,
-                                IHostingEnvironment env,
-                                IChangelogData changelogData,
-                                IMapper mapper,
-                                IStringLocalizer<SharedResources> localizer,
-                                IFeedService feedService)
+                                IStringLocalizer<SharedResources> localizer
+                                )
         {
-            _env = env;
             _localizer = localizer;
             _configuration = configuration;
-            _feedService = feedService;
-            _mapper = mapper;
-            _changelogData = changelogData;
         }
 
         public IActionResult Index()
@@ -49,6 +33,7 @@ namespace ActuallyStandard.Controllers
 
             var model = new HomeViewModel
             {
+                PageTitle = _localizer[SharedResources.Sitemap.Home],
                 ResourcesValue = _localizer[SharedResources.ResourceValue],
                 CookieValue = requestCulture.Culture.Name
             };
@@ -59,18 +44,10 @@ namespace ActuallyStandard.Controllers
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            var defaultCookieName = _configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+            var defaultCookieName = _configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
             LocalizationHelper.SetCultureCookie(HttpContext, defaultCookieName, culture);
 
             return LocalRedirect(returnUrl);
-        }
-
-        [ResponseCache(Duration = 10000)]
-        [Route("feed")]
-        public async Task<ActionResult> Feed()
-        {
-            var releases = _mapper.Map<IEnumerable<ReleaseViewModel>>(_changelogData.GetAll());
-            return Content(await _feedService.GenerateFeed(releases), "application/atom+xml");
         }
 
         public IActionResult Error() =>

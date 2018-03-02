@@ -2,9 +2,8 @@
 
 namespace ActuallyStandard.ViewModels.Changelog
 {
-    public class IndexViewModel
+    public class IndexViewModel : BaseViewModel
     {
-        public string PageTitle { get; set; }
         public IEnumerable<ReleaseViewModel> Releases { get; set; }
     }
 }

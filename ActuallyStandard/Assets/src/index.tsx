@@ -28,6 +28,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import ChangelogIndex from './containers/changelog/IndexContainer'
 import LangSwitcher from './containers/LangSwitcherContainer'
 
+
 const App = <BrowserRouter>
     <div>
         <h1>Hello</h1>

@@ -3,7 +3,6 @@ using ActuallyStandard.Localization;
 using ActuallyStandard.ViewModels;
 using AutoMapper;
 using Changelog;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Localization;
 
 namespace ActuallyStandard.Middleware

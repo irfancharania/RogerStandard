@@ -13,8 +13,8 @@ namespace ActuallyStandard.Middleware
     public class PersistLocalizationQueryString
     {
         private readonly RequestDelegate _next;
-        private IApplicationBuilder _app;
-        private IConfiguration _configuration;
+        private readonly IApplicationBuilder _app;
+        private readonly IConfiguration _configuration;
 
         public PersistLocalizationQueryString(RequestDelegate next
                                     , IApplicationBuilder app
@@ -27,13 +27,13 @@ namespace ActuallyStandard.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            var lang = context.Request.Query[Config.Localization_DefaultQueryStringParameter];
+            var lang = context.Request.Query[Config.LocalizationDefaultQueryStringParameter];
             var locOptions = _app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
 
             var culture = new CultureInfo(lang);
             if (locOptions.Value.SupportedCultures.Contains(culture))
             {
-                var defaultCookieName = _configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+                var defaultCookieName = _configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
                 LocalizationHelper.SetCultureCookie(context, defaultCookieName, lang);
             }
 
@@ -49,10 +49,11 @@ namespace ActuallyStandard.Middleware
             app.UseWhen(
                 (context) =>
                 {
-                    var isNotApi = !context.Request.Path.Value.Contains("/api/");
-                    var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.Localization_DefaultQueryStringParameter]);
+                    var path = context.Request.Path.Value;
+                    var validPath = !(path.Contains("/api/") || path.Contains("/feed"));
+                    var hasLangParameter = !string.IsNullOrWhiteSpace(context.Request.Query[Config.LocalizationDefaultQueryStringParameter]);
 
-                    return isNotApi && hasLangParameter;
+                    return validPath && hasLangParameter;
                 },
                 (builder) => builder.UseMiddleware<PersistLocalizationQueryString>(app, configuration)
                 );

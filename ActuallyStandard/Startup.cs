@@ -52,7 +52,7 @@ namespace ActuallyStandard
                         options.RequestCultureProviders
                                 .OfType<CookieRequestCultureProvider>()
                                 .First()
-                                .CookieName = Configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+                                .CookieName = Configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
                     }
                 )
                 .AddResponseCaching()
@@ -62,6 +62,7 @@ namespace ActuallyStandard
                 .AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    c.DescribeAllEnumsAsStrings();
                 }
                 )                
                 .AddMvc()
