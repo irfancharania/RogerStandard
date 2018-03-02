@@ -26,12 +26,14 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import ChangelogIndex from './containers/changelog/IndexContainer'
+import LangSwitcher from './containers/LangSwitcherContainer'
 
 const App = <BrowserRouter>
     <div>
         <h1>Hello</h1>
         <Route path="/changelog" component={ChangelogIndex} />
+        <LangSwitcher />
     </div>
 </BrowserRouter>
 
-// ReactDOM.render(App, document.getElementById("app"))
+ReactDOM.render(App, document.getElementById('app'))
