@@ -24,7 +24,7 @@ export class Some<T> implements Option<T> {
     isEmpty() { return false }
     isDefined() { return true }
     map<U>(f: (v: T) => U): Option<U> {
-        return new Some(f(this.v))
+        return option(f(this.v))
     }
     bind<U>(f: (v: T) => Option<U>): Option<U> {
         return f(this.v)
