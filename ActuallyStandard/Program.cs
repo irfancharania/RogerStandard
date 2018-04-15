@@ -42,6 +42,7 @@ namespace ActuallyStandard
         public static IWebHost BuildWebHost(IConfigurationRoot configuration
                                             , string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(c => c.AddServerHeader = false)
                 .CaptureStartupErrors(true)
                 .UseStartup<Startup>()
                 .UseConfiguration(configuration)
