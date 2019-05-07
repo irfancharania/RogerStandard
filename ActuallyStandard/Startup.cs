@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +54,7 @@ namespace ActuallyStandard
                         options.RequestCultureProviders
                                 .OfType<CookieRequestCultureProvider>()
                                 .First()
-                                .CookieName = Configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+                                .CookieName = Configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
                     }
                 )
                 .AddResponseCaching()
@@ -75,6 +77,13 @@ namespace ActuallyStandard
                 )
             ;
             services.AddAutoMapper(typeof(SharedResources));
+            services.AddApiVersioning(o =>
+            {
+                o.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

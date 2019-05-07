@@ -1,6 +1,6 @@
 ﻿@using ActuallyStandard.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
-
+@model ActuallyStandard.ViewModels.BaseViewModel
 @inject IHtmlLocalizer<SharedResources> SharedLocalizer;
 
 <!doctype html>
@@ -10,7 +10,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>@ViewData["Title"] - @SharedLocalizer[SharedResources.Sitemap.ApplicationName]</title>
+    <title>@Model.PageTitle - @SharedLocalizer[SharedResources.Sitemap.ApplicationName]</title>
     <link rel="stylesheet" type="text/css" href="~/dist/styles.css" />
 </head>
 <body>

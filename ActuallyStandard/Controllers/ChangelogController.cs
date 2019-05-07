@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Services;
 using ActuallyStandard.ViewModels;
@@ -54,22 +53,30 @@ namespace ActuallyStandard.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var localizedString = _localizer[SharedResources.Sitemap.ChangelogDetails];
             var model = new DetailViewModel()
             {
-                PageTitle = "Details - Version " + version,
+                PageTitle = $"{localizedString} - {version}",
                 Release = _mapper.Map<ReleaseViewModel>(release)
             };
             return View(model);
         }
 
         [HttpGet("[action]")]
-        public ViewResult Create() => View();
+        public ViewResult Create()
+        {
+            var model = new CreateViewModel()
+            {
+                PageTitle = _localizer[SharedResources.Sitemap.ChangelogCreate]
+            };
+            return View(model);
+        }
 
         [HttpPost("[action]")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ReleaseCreateViewModel model)
+        public IActionResult Create(CreateViewModel model)
         {
-            var dto = _mapper.Map<Dtos.ReleaseDto>(model);
+            var dto = _mapper.Map<Dtos.ReleaseDto>(model.Release);
             var result = Dtos.ReleaseDtoModule.toDomain(dto);
 
             if (result.IsError)
@@ -83,7 +90,7 @@ namespace ActuallyStandard.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(model);
             }
             else
             {

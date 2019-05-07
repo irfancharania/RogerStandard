@@ -24,14 +24,20 @@ const app = new Vue({
 */
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 import ChangelogIndex from './containers/changelog/IndexContainer'
+import LangSwitcher from './containers/LangSwitcherContainer'
+import { store } from './store'
 
-const App = <BrowserRouter>
-    <div>
-        <h1>Hello</h1>
-        <Route path="/changelog" component={ChangelogIndex} />
-    </div>
-</BrowserRouter>
+const App = <Provider store={store} >
+    <BrowserRouter>
+        <div>
+            <h1>Hello</h1>
+            <Route path="/changelog" component={ChangelogIndex} />
+            <LangSwitcher />
+        </div>
+    </BrowserRouter>
+</Provider>
 
-// ReactDOM.render(App, document.getElementById("app"))
+ReactDOM.render(App, document.getElementById('app'))

@@ -4,7 +4,6 @@ using ActuallyStandard.Helpers;
 using ActuallyStandard.Localization;
 using ActuallyStandard.Models;
 using ActuallyStandard.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +15,13 @@ namespace ActuallyStandard.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHostingEnvironment _env;
         private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IConfiguration _configuration;
-        
+
         public HomeController(IConfiguration configuration,
-                                IHostingEnvironment env,
                                 IStringLocalizer<SharedResources> localizer
                                 )
         {
-            _env = env;
             _localizer = localizer;
             _configuration = configuration;
         }
@@ -37,6 +33,7 @@ namespace ActuallyStandard.Controllers
 
             var model = new HomeViewModel
             {
+                PageTitle = _localizer[SharedResources.Sitemap.Home],
                 ResourcesValue = _localizer[SharedResources.ResourceValue],
                 CookieValue = requestCulture.Culture.Name
             };
@@ -47,12 +44,12 @@ namespace ActuallyStandard.Controllers
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            var defaultCookieName = _configuration.GetValue<string>(AppSettings.Localization_DefaultCookieName);
+            var defaultCookieName = _configuration.GetValue<string>(AppSettings.LocalizationDefaultCookieName);
             LocalizationHelper.SetCultureCookie(HttpContext, defaultCookieName, culture);
 
             return LocalRedirect(returnUrl);
         }
-        
+
         public IActionResult Error() =>
             View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }

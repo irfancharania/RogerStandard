@@ -1,8 +1,7 @@
 namespace ActuallyStandard.ViewModels.Changelog
 {
-    public class CreateViewModel
+    public class CreateViewModel : BaseViewModel
     {
-        public string PageTitle { get; set; }
         public ReleaseCreateViewModel Release { get; set; }
     }
 }

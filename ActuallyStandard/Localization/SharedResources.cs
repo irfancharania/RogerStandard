@@ -1,9 +1,10 @@
-namespace ActuallyStandard.Localization
+﻿namespace ActuallyStandard.Localization
 {
     public class SharedResources
     {
         public const string Hello = "Hello";
         public const string Bye = "Bye";
+        public const string Language = "Language";
         public const string CookieValue = "CookieValue";
         public const string ResourceValue = "ResourceValue";
 
@@ -11,12 +12,23 @@ namespace ActuallyStandard.Localization
             public const string ApplicationName = "Sitemap.ApplicationName";
             public const string Home = "Sitemap.Home";
             public const string Changelog = "Sitemap.Changelog";
+            public const string ChangelogCreate = "Sitemap.ChangelogCreate";
+            public const string ChangelogEdit = "Sitemap.ChangelogEdit";
+            public const string ChangelogDetails = "Sitemap.ChangelogDetails";
         }
 
         public static class WorkItemTypeDto {
             public const string Bug = "WorkItemTypeDto.Bug";
             public const string Feature = "WorkItemTypeDto.Feature";
             public const string Miscellaneous = "WorkItemTypeDto.Miscellaneous";
+        }
+
+        public static class Release {
+            public const string ReleaseVersion = "Release.ReleaseVersion";
+            public const string ReleaseDate = "Release.ReleaseDate";
+            public const string Authors = "Release.Authors";
+            public const string WorkItems = "Release.WorkItems";
+            public const string RecordVersion = "Release.RecordVersion";
         }
 
         public static class Error {

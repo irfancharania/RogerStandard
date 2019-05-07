@@ -2,9 +2,8 @@
 
 namespace ActuallyStandard.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : BaseViewModel
     {
-        public string PageTitle { get; set; }
         public string Locale { get; set; }
 
         public string CurrentDateTime { get; }

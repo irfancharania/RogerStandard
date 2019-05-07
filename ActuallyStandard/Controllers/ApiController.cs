@@ -11,7 +11,8 @@ using Microsoft.Extensions.Localization;
 
 namespace ActuallyStandard.Controllers
 {
-    [Route("api/v1")]
+    [ApiVersion("1.0")]
+    [Route("api/v{apiVersion}")]
     public class ApiController : Controller
     {
         private readonly IStringLocalizer<SharedResources> _localizer;

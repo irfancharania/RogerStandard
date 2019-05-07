@@ -1,3 +1,5 @@
+export type Locale = 'en-CA' | 'fr-CA'
+
 export interface WorkItem {
     id: number,
     description: string,
